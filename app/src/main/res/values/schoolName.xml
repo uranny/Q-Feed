@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="schoolNameLst">
+        <item>대구소마고</item>
+        <item>대덕소마고</item>
+        <item>광주소마고</item>
+        <item>부산소마고</item>
+    </string-array>
+</resources>
