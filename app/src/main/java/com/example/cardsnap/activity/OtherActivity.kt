@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -19,6 +20,7 @@ import com.example.cardsnap.serverDaechae.Chat
 import com.example.cardsnap.serverDaechae.User
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.reflect.typeOf
 
 class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListener {
 
@@ -46,7 +48,6 @@ class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListe
     override fun onFragmentViewCreated(view: View) {
 
         setProfile(view)
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -82,21 +83,49 @@ class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListe
     @RequiresApi(Build.VERSION_CODES.O)
     private fun checkChat(){
 
-        User.userChatIndex = -1
+        try {
+            User.userChatIndex = -1
 
-        if(User.userChatLst[User.userLogInIndex].isEmpty()){
-            addChat()
-        }
-
-        for(i in User.userChatLst[User.userLogInIndex]){
-            if (i.userId == post.userId){
-                User.userChatIndex = User.userChatLst[User.userLogInIndex].indexOf(i)
+            if(User.userChatLst[User.userLogInIndex].isEmpty()){
+                addChat()
             }
-        }
 
-        if (User.userChatIndex == -1){
-            addChat()
-            User.userChatIndex = 0
+            for(i in User.userChatLst[User.userLogInIndex]){
+                if (i.userId == post.userId){
+                    User.userChatIndex = User.userChatLst[User.userLogInIndex].indexOf(i)
+                }
+            }
+
+            if (User.userChatIndex == -1){
+                addChat()
+                User.userChatIndex = 0
+
+            } else if (User.userChatIndex != 0){
+
+                var temp = User.userChatLst[User.userLogInIndex][User.userChatIndex]
+                User.userChatLst[User.userLogInIndex].removeAt(User.userChatIndex)
+                User.userChatLst[User.userLogInIndex].add(0, temp)
+
+
+                for(i in User.userChatLst[User.userProfileIndex]){
+                    if (i.userId == User.postLst[User.userLogInIndex].userId){
+                        User.userChatIndex = User.userChatLst[User.userProfileIndex].indexOf(i)
+                    }
+                }
+
+                temp = User.userChatLst[User.userProfileIndex][User.userChatIndex]
+                User.userChatLst[User.userProfileIndex].removeAt(User.userChatIndex)
+                User.userChatLst[User.userProfileIndex].add(0, temp)
+
+                for(i in User.userChatLst[User.userLogInIndex]){
+                    if (i.userId == post.userId){
+                        User.userChatIndex = User.userChatLst[User.userLogInIndex].indexOf(i)
+                    }
+                }
+
+            }
+        }catch (e : Exception){
+            Log.e("MyTag", "${e.message}")
         }
 
         //InChatActivity로 이동하는 코드
@@ -108,7 +137,7 @@ class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListe
     private fun addChat(){
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("HH시 mm분") // 예상 문제 구간
-        val formatted = current.format(formatter)
+        val formatted = current.format(formatter) // String
 
         User.userChatLst[User.userLogInIndex].add(0,
             Chat(
