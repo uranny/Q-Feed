@@ -18,7 +18,7 @@ class InChatActivity : AppCompatActivity() {
         binding = ActivityInChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userChat = User.userChatLst[User.userLogInIndex][User.userChatIndex]
+        val userChat = User.chatLst[User.logInIndex][User.chatIndex]
         val imageUri = userChat.userImg
 
         binding.otherUserId.setText(userChat.userName)

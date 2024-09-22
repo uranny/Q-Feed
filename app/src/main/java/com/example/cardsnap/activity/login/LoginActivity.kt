@@ -37,8 +37,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun getUserIdex(inputId : String) : Int{
         return when{
-            inputId in User.userIdLst -> User.userIdLst.indexOf(inputId)
-            inputId in User.userEmailLst -> User.userEmailLst.indexOf(inputId)
+            inputId in User.idLst -> User.idLst.indexOf(inputId)
+            inputId in User.emailLst -> User.emailLst.indexOf(inputId)
             else -> -1
         }
     }
@@ -50,8 +50,8 @@ class LoginActivity : AppCompatActivity() {
         val index = getUserIdex(inputId)
 
         if (index != -1){
-            if(User.userPassLst[index] == inputPass){
-                User.userLogInIndex = index
+            if(User.passLst[index] == inputPass){
+                User.logInIndex = index
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent) // 이동

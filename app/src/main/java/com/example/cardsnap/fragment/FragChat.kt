@@ -19,7 +19,7 @@ class FragChat : Fragment() {
 
         try {
             val chatView = frameChat.findViewById<RecyclerView>(R.id.recyclerView)
-            val chatLst = User.userChatLst[User.userLogInIndex]
+            val chatLst = User.chatLst[User.logInIndex]
             chatView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             chatView.setHasFixedSize(true)

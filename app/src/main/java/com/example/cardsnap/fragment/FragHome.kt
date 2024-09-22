@@ -22,7 +22,7 @@ class FragHome : Fragment() {
         val userLst = arrayListOf<Post>()
 
         for(i in User.postLst){
-            if(i.userId != User.userIdLst[User.userLogInIndex]){
+            if(i.userId != User.idLst[User.logInIndex]){
                 userLst.add(i)
             }
         }

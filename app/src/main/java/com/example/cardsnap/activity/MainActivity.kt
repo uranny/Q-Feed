@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.profileBtn -> {
                     for (i in User.postLst) {
-                        if (i.userId == User.userIdLst[User.userLogInIndex]) {
-                            User.userProfileIndex = User.postLst.indexOf(i)
+                        if (i.userId == User.idLst[User.logInIndex]) {
+                            User.profileIndex = User.postLst.indexOf(i)
                         }
                     }
                     setFrag(2)

@@ -22,7 +22,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileEditBinding
 
-    private var setURI: String = User.postLst[User.userProfileIndex].userImg
+    private var setURI: String = User.postLst[User.profileIndex].userImg
 
     private val REQUEST_IMAGE_PICK = 1
     private val REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 2
@@ -32,7 +32,7 @@ class EditProfileActivity : AppCompatActivity() {
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val post = User.postLst[User.userProfileIndex]
+        val post = User.postLst[User.profileIndex]
 
         val imageUri = post.userImg
 
@@ -61,7 +61,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.finishBtn.setOnClickListener {
-            with(User.postLst[User.userProfileIndex]) {
+            with(User.postLst[User.profileIndex]) {
                 userName = binding.editName.text.toString()
                 userImg = setURI
                 userAffil =

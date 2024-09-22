@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.databinding.ActivityInProfileBinding
+import com.example.cardsnap.databinding.FrameSystemBinding
 import com.example.cardsnap.fragment.FragSystem
 import com.example.cardsnap.serverDaechae.Chat
 import com.example.cardsnap.serverDaechae.User
@@ -24,8 +25,9 @@ import kotlin.reflect.typeOf
 
 class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListener {
 
-    private lateinit var binding: ActivityInProfileBinding
-    private val post = User.postLst[User.userProfileIndex]
+    lateinit var binding: ActivityInProfileBinding
+    lateinit var fragBinding : FrameSystemBinding
+    private val post = User.postLst[User.profileIndex]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,36 +48,30 @@ class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListe
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onFragmentViewCreated(view: View) {
-
+        fragBinding = FrameSystemBinding.bind(view) // 여기서 초기화
         setProfile(view)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setProfile(view: View){
+        with(fragBinding){
+            afilTxt.text = post.userAffil
+            nameTxt.text = post.userName
+            messageTxt.text = post.messagetxt
+            tagTxt.text = post.tagTxt
+            ageTxt.text = post.age.toString() + "세"
+            heightTxt.text = post.height.toString() + "cm"
+            habbitTxt.text = post.habbit
+            kgTxt.text = post.kg.toString() + "kg"
+            likeTxt.text = post.likeTxt
+            hateTxt.text = post.hateTxt
+            idealTxt.text = post.idealTxt
+            profileEditBtn.visibility = View.GONE
+            logOutBtn.visibility = View.GONE
+            chatInBtn.visibility = View.VISIBLE
 
-        with(view){
-            findViewById<TextView>(R.id.afilTxt).text = post.userAffil
-            findViewById<TextView>(R.id.nameTxt).text = post.userName
-            findViewById<TextView>(R.id.messageTxt).text = post.messagetxt
-            findViewById<TextView>(R.id.tagTxt).text = post.tagTxt
-            findViewById<TextView>(R.id.ageTxt).text = post.age.toString() + "세"
-            findViewById<TextView>(R.id.heightTxt).text = post.height.toString() + "cm"
-            findViewById<TextView>(R.id.habbitTxt).text = post.habbit
-            findViewById<TextView>(R.id.kgTxt).text = post.kg.toString() + "kg"
-            findViewById<TextView>(R.id.likeTxt).text = post.likeTxt
-            findViewById<TextView>(R.id.hateTxt).text = post.hateTxt
-            findViewById<TextView>(R.id.idealTxt).text = post.idealTxt
-
-            findViewById<LinearLayout>(R.id.linearView)?.apply {
-                findViewById<Button>(R.id.profileEditBtn)?.visibility = View.GONE
-                findViewById<Button>(R.id.logOutBtn)?.visibility = View.GONE
-
-                findViewById<Button>(R.id.chatInBtn)?.apply{
-                    visibility = View.VISIBLE
-                    setOnClickListener {
-                        checkChat()
-                    }
-                }
+            chatInBtn.setOnClickListener {
+                checkChat()
             }
         }
     }
@@ -84,45 +80,21 @@ class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListe
     private fun checkChat(){
 
         try {
-            User.userChatIndex = -1
+            User.chatIndex = -1
 
-            if(User.userChatLst[User.userLogInIndex].isEmpty()){
+            if(User.chatLst[User.logInIndex].isEmpty()){
                 addChat()
             }
 
-            for(i in User.userChatLst[User.userLogInIndex]){
+            for(i in User.chatLst[User.logInIndex]){
                 if (i.userId == post.userId){
-                    User.userChatIndex = User.userChatLst[User.userLogInIndex].indexOf(i)
+                    User.chatIndex = User.chatLst[User.logInIndex].indexOf(i)
                 }
             }
 
-            if (User.userChatIndex == -1){
+            if (User.chatIndex == -1){
                 addChat()
-                User.userChatIndex = 0
-
-            } else if (User.userChatIndex != 0){
-
-                var temp = User.userChatLst[User.userLogInIndex][User.userChatIndex]
-                User.userChatLst[User.userLogInIndex].removeAt(User.userChatIndex)
-                User.userChatLst[User.userLogInIndex].add(0, temp)
-
-
-                for(i in User.userChatLst[User.userProfileIndex]){
-                    if (i.userId == User.postLst[User.userLogInIndex].userId){
-                        User.userChatIndex = User.userChatLst[User.userProfileIndex].indexOf(i)
-                    }
-                }
-
-                temp = User.userChatLst[User.userProfileIndex][User.userChatIndex]
-                User.userChatLst[User.userProfileIndex].removeAt(User.userChatIndex)
-                User.userChatLst[User.userProfileIndex].add(0, temp)
-
-                for(i in User.userChatLst[User.userLogInIndex]){
-                    if (i.userId == post.userId){
-                        User.userChatIndex = User.userChatLst[User.userLogInIndex].indexOf(i)
-                    }
-                }
-
+                User.chatIndex = 0
             }
         }catch (e : Exception){
             Log.e("MyTag", "${e.message}")
@@ -139,7 +111,7 @@ class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListe
         val formatter = DateTimeFormatter.ofPattern("HH시 mm분") // 예상 문제 구간
         val formatted = current.format(formatter) // String
 
-        User.userChatLst[User.userLogInIndex].add(0,
+        User.chatLst[User.logInIndex].add(0,
             Chat(
                 post.userName,
                 post.userImg,
@@ -149,12 +121,12 @@ class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListe
             )
         )
 
-        User.userChatLst[User.userProfileIndex].add(0,
+        User.chatLst[User.profileIndex].add(0,
             Chat(
-                User.postLst[User.userLogInIndex].userName,
-                User.postLst[User.userLogInIndex].userImg,
-                User.postLst[User.userLogInIndex].userAffil,
-                User.postLst[User.userLogInIndex].userId,
+                User.postLst[User.logInIndex].userName,
+                User.postLst[User.logInIndex].userImg,
+                User.postLst[User.logInIndex].userAffil,
+                User.postLst[User.logInIndex].userId,
                 formatted
             )
         )

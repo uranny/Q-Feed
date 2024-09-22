@@ -16,9 +16,12 @@ import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.activity.EditProfileActivity
 import com.example.cardsnap.activity.login.LoginActivity
+import com.example.cardsnap.databinding.FrameSystemBinding
 import com.example.cardsnap.serverDaechae.User
 
 class FragSystem : Fragment() {
+
+    lateinit var binding : FrameSystemBinding
 
     // 프로필 수정 액티비티에 사용될 요청 코드를 상수로 정의
     companion object {
@@ -44,28 +47,25 @@ class FragSystem : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.frame_system, container, false)
+        binding = FrameSystemBinding.inflate(inflater)
+        return binding.root
     }
 
     // View가 생성된 후 호출되는 함수
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 로그아웃 버튼, 프로필 편집 버튼, 이미지 뷰 초기화
-        val logoutBtn = view.findViewById<Button>(R.id.logOutBtn)
-        val editBtn = view.findViewById<Button>(R.id.profileEditBtn)
-
         // view 불러오기
         showView(view)
 
         // 프로필 편집 버튼 클릭 시 EditProfileActivity로 이동
-        editBtn.setOnClickListener {
+        binding.profileEditBtn.setOnClickListener {
             val intent = Intent(context, EditProfileActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_EDIT_PROFILE)
         }
 
         // 로그아웃 버튼 클릭 시 LoginActivity로 이동하고 현재 액티비티 종료
-        logoutBtn.setOnClickListener {
+        binding.logOutBtn.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
             activity?.finish() // 현재 액티비티 종료
@@ -93,20 +93,21 @@ class FragSystem : Fragment() {
     // view를 설정하는 함수
     private fun showView(view : View){
         // 사용자 프로필 정보 다시 가져오기
-        val userProfile = User.postLst[User.userProfileIndex]
+        val userProfile = User.postLst[User.profileIndex]
 
-        // 텍스트 뷰 업데이트
-        view.findViewById<TextView>(R.id.afilTxt)?.text = userProfile.userAffil
-        view.findViewById<TextView>(R.id.nameTxt)?.text = userProfile.userName
-        view.findViewById<TextView>(R.id.messageTxt)?.text = userProfile.messagetxt
-        view.findViewById<TextView>(R.id.tagTxt)?.text = userProfile.tagTxt
-        view.findViewById<TextView>(R.id.ageTxt)?.text = "${userProfile.age}세"
-        view.findViewById<TextView>(R.id.heightTxt)?.text = "${userProfile.height}cm"
-        view.findViewById<TextView>(R.id.habbitTxt)?.text = userProfile.habbit
-        view.findViewById<TextView>(R.id.kgTxt)?.text = "${userProfile.kg}kg"
-        view.findViewById<TextView>(R.id.likeTxt)?.text = userProfile.likeTxt
-        view.findViewById<TextView>(R.id.hateTxt)?.text = userProfile.hateTxt
-        view.findViewById<TextView>(R.id.idealTxt)?.text = userProfile.idealTxt
+        with(binding){
+            afilTxt?.text = userProfile.userAffil
+            nameTxt?.text = userProfile.userName
+            messageTxt?.text = userProfile.messagetxt
+            tagTxt?.text = userProfile.tagTxt
+            ageTxt?.text = "${userProfile.age}세"
+            heightTxt?.text = "${userProfile.height}cm"
+            habbitTxt?.text = userProfile.habbit
+            kgTxt?.text = "${userProfile.kg}kg"
+            likeTxt?.text = userProfile.likeTxt
+            hateTxt?.text = userProfile.hateTxt
+            idealTxt?.text = userProfile.idealTxt
+        }
 
         // 이미지 URI 가져오기
         val imageUri = userProfile.userImg
@@ -116,10 +117,9 @@ class FragSystem : Fragment() {
             Glide.with(this)
                 .load(Uri.parse(imageUri))
                 .error(R.drawable.img_4)
-                .into(view.findViewById(R.id.userImg))
+                .into(binding.userImg)
         } else {
-            view.findViewById<ImageView>(R.id.userImg)
-                ?.setImageResource(R.drawable.ic_launcher_foreground)
+            binding.userImg?.setImageResource(R.drawable.ic_launcher_foreground)
         }
     }
 }

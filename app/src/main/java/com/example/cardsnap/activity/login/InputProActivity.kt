@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.cardsnap.databinding.ActivityLoginEditBinding
+import com.example.cardsnap.serverDaechae.EditUser
 import com.example.cardsnap.serverDaechae.Post
 import com.example.cardsnap.serverDaechae.User
 import java.time.LocalDateTime
@@ -43,18 +44,18 @@ class InputProActivity : AppCompatActivity() {
             startActivityForResult(intent, REQUEST_IMAGE_PICK)  // 이미지 선택 액티비티 시작
         }
 
-        // 저장한 유저 프로필 데이터 불러오기
+        // 임시 저장한 유저 프로필 데이터 불러오기
         with(binding){
-            editName.setText(User.editName)
-            editMessage.setText(User.editMessage)
-            editTag.setText(User.editTag)
-            editAge.setText(User.editAge)
-            editHeight.setText(User.editHeight)
-            editWeight.setText(User.editWeight)
-            editHabby.setText(User.editHabby)
-            editLikeThing.setText(User.editLikeThing)
-            editBadThing.setText(User.editBadThing)
-            editIdeal.setText(User.editIdeal)
+            editName.setText(EditUser.editName)
+            editMessage.setText(EditUser.editMessage)
+            editTag.setText(EditUser.editTag)
+            editAge.setText(EditUser.editAge)
+            editHeight.setText(EditUser.editHeight)
+            editWeight.setText(EditUser.editWeight)
+            editHabby.setText(EditUser.editHabby)
+            editLikeThing.setText(EditUser.editLikeThing)
+            editBadThing.setText(EditUser.editBadThing)
+            editIdeal.setText(EditUser.editIdeal)
         }
 
         // 완료 버튼 클릭 리스너
@@ -76,9 +77,9 @@ class InputProActivity : AppCompatActivity() {
                 val result = wordLst.joinToString(" ") { "#$it" }
 
                 // 유저 정보를 리스트에 추가
-                User.userEmailLst.add(0, User.inputEmail)
-                User.userIdLst.add(0, User.inputId)
-                User.userPassLst.add(0, User.inputPass)
+                User.emailLst.add(0, EditUser.inputEmail)
+                User.idLst.add(0, EditUser.inputId)
+                User.passLst.add(0, EditUser.inputPass)
 
                 // 새로운 포스트 객체를 생성하고 유저 포스트 리스트에 추가
                 User.postLst.add(0, Post(
@@ -90,17 +91,17 @@ class InputProActivity : AppCompatActivity() {
                     binding.editMessage.text.toString(),
                     result,
                     binding.editAge.text.toString().toInt(),
-                    binding.editHeight.text.toString().toFloat(),
-                    binding.editWeight.text.toString().toFloat(),
+                    binding.editHeight.text.toString().toFloatOrNull()?:0.0f,
+                    binding.editWeight.text.toString().toFloatOrNull()?:0.0f,
                     binding.editHabby.text.toString(),
                     binding.editLikeThing.text.toString(),
                     binding.editBadThing.text.toString(),
                     binding.editIdeal.text.toString(),
-                    User.inputId
+                    EditUser.inputId
                 ))
 
                 // 유저 채팅 리스트 생성
-                User.userChatLst.add(0, arrayListOf())
+                User.chatLst.add(0, arrayListOf())
 
                 Toast.makeText(this, "회원가입을 성공하였습니다.", Toast.LENGTH_SHORT).show()
 
@@ -115,7 +116,7 @@ class InputProActivity : AppCompatActivity() {
         // 뒤로가기 버튼 클릭 리스너
         binding.backBtn.setOnClickListener {
             // 입력된 내용을 저장
-            with(User){
+            with(EditUser){
                 editName = binding.editName.text.toString()
                 editAffil = "${binding.selectSchool.selectedItem} ${binding.selectGrade.selectedItem}"
                 editMessage = binding.editMessage.text.toString()
