@@ -2,11 +2,17 @@ package com.example.cardsnap.activity.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.service.controls.ControlsProviderService.TAG
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.cardsnap.activity.MainActivity
+import com.example.cardsnap.data.auth.AuthRequestManager
+import com.example.cardsnap.data.auth.LoginRequest
 import com.example.cardsnap.databinding.ActivityLoginBinding
 import com.example.cardsnap.serverDaechae.User
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
         binding.wrongTxt.visibility = View.GONE
 
         binding.loginBtn.setOnClickListener {
-            loginCheck()
+            loginRequest()
         }
 
         binding.joinBtn.setOnClickListener {
@@ -43,26 +49,38 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun loginCheck(){
-        val inputId = binding.inputId.text.toString()
-        val inputPass = binding.inputPass.text.toString()
-
-        val index = getUserIdex(inputId)
-
-        if (index != -1){
-            if(User.passLst[index] == inputPass){
-                User.logInIndex = index
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent) // 이동
-                finish()
-            }
-            else{
-                showWrongTxt("비밀번호가 틀렸습니다")
-            }
-        }else{
-            showWrongTxt("이메일, 아이디가 잘못 되었습니다.")
+    private fun loginRequest(){
+        if (binding.inputId.text.isEmpty() || binding.inputPass.text.isEmpty()){
+            showWrongTxt("빈칸을 입력해주세요")
+            return
         }
-    }
 
+        val id = binding.inputId.text.toString()
+        val pw = binding.inputPass.text.toString()
+
+        lifecycleScope.launch {
+            try {
+                val loginRequest = LoginRequest(id, pw)
+                val response = AuthRequestManager.loginRequest(loginRequest)
+                Log.d(TAG, "resoponse.header : ${response.code()}")
+                Log.d(TAG, "LoginFragment loginbutton click5")
+
+                val accessToken = response.body()?.accessToken
+                val refreshToken = response.body()?.refreshToken
+                Log.d("mine", "accesstoken is $accessToken")
+                Log.d("mine", "refreshtoken is $refreshToken")
+
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
+
+            } catch (e: retrofit2.HttpException){
+                showWrongTxt("아이디, 비번이 잘못되었스빈다")
+                Log.e("mine", "${e.message}")
+            } catch (e: Exception){
+                showWrongTxt("나는 아무거또 멀리요")
+                Log.e("mine", "${e.message}")
+            }
+        }
+
+    }
 }
