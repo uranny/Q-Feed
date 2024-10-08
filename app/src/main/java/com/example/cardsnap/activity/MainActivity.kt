@@ -2,12 +2,14 @@ package com.example.cardsnap.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.example.cardsnap.R
 import com.example.cardsnap.databinding.ActivityMainBinding
 import com.example.cardsnap.fragment.FragChat
@@ -61,11 +63,14 @@ class MainActivity : AppCompatActivity() {
     private fun setFrag(fragNum: Int) {
         val ft = supportFragmentManager.beginTransaction()
         when (fragNum) {
-            0 -> ft.replace(R.id.Frame, FragHome()).commit()
-            1 -> ft.replace(R.id.Frame, FragChat()).commit()
+            0 -> {
+                ft.replace(R.id.Frame, FragHome()).commit()
+            }
+            1 -> {
+                ft.replace(R.id.Frame, FragChat()).commit()
+            }
             2 -> {
-                val fragSystem = FragSystem()
-                ft.replace(R.id.Frame, fragSystem).commit()
+                ft.replace(R.id.Frame, FragSystem()).commit()
             }
         }
     }
@@ -77,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
         if(gapTime in 0..2000){
             super.onBackPressed()
-        }else{
+        } else{
             backBtnTime = curTime
             Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
         }

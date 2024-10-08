@@ -70,6 +70,8 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("mine", "accesstoken is $accessToken")
                 Log.d("mine", "refreshtoken is $refreshToken")
 
+                getUserIdex(id)
+
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
 

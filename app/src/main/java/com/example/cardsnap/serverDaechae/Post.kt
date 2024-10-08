@@ -3,7 +3,7 @@ package com.example.cardsnap.serverDaechae
 import android.net.Uri
 import com.example.cardsnap.R
 
-class Post(
+data class Post(
     var userName: String = "User",
     var userAffil: String = "Affiliation",
     var time: String = "2008-10-16",

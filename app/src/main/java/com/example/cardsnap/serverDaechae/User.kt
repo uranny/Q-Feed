@@ -3,6 +3,7 @@ package com.example.cardsnap.serverDaechae
 import com.example.cardsnap.R
 
 object User {
+
     // 다른 유저 프로필 들어갈 때 필요한 인덱스
     var profileIndex = 0
 

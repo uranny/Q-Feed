@@ -17,13 +17,8 @@
         android:theme="@style/Theme.CardSnap"
         tools:targetApi="31">
 
-        <activity android:name=".activity.login.InputProActivity"
-            android:exported="false"/>
         <activity
             android:name=".activity.EditProfileActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.login.JoinActivity"
             android:exported="false"/>
         <activity
             android:name=".activity.MainActivity"
@@ -35,7 +30,7 @@
             android:name=".activity.InChatActivity"
             android:exported="false"/>
         <activity
-            android:name=".activity.login.LoginActivity"
+            android:name=".activity.login.ServiceActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
