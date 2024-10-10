@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.login
+package com.example.cardsnap.activity.secret
 
 import android.Manifest
 import android.content.Intent
@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.cardsnap.databinding.ActivityLoginEditBinding
+import com.example.cardsnap.databinding.FrameJoinInputBinding
 import com.example.cardsnap.serverDaechae.EditUser
 import com.example.cardsnap.serverDaechae.Post
 import com.example.cardsnap.serverDaechae.User
@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter
 
 class InputProActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginEditBinding
+    private lateinit var binding: FrameJoinInputBinding
     private var setURI: String = ""  // 선택된 이미지 URI를 저장할 변수
 
     private val REQUEST_IMAGE_PICK = 1  // 이미지 선택 요청 코드
@@ -30,7 +30,7 @@ class InputProActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginEditBinding.inflate(layoutInflater)
+        binding = FrameJoinInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // 외부 저장소 읽기 권한 요청

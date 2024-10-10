@@ -30,7 +30,7 @@
             android:name=".activity.InChatActivity"
             android:exported="false"/>
         <activity
-            android:name=".activity.login.ServiceActivity"
+            android:name=".activity.ServiceActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

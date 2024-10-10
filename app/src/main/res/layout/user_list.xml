@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="최은관"
+        android:text="이름"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:text="12시간 전"
+        android:text="0시간 전"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -54,7 +54,7 @@
         android:layout_marginEnd="5dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="대구소프트웨어 마이스터고 1학년"
+        android:text="소속"
         android:textColor="#8D000000"
         app:layout_constraintBottom_toBottomOf="@+id/userName"
         app:layout_constraintEnd_toStartOf="@+id/timeTxt"
@@ -105,7 +105,7 @@
             android:id="@+id/likeTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="10개의 좋아요"
+            android:text="개의 좋아요"
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -118,7 +118,7 @@
                 android:id="@+id/titleTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="나랑 같이 새벽순찰 돌래?"
+                android:text="상태메세지"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -133,7 +133,7 @@
                 android:id="@+id/tagTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="#08#자치위원#타방"
+                android:text="#해시태그"
                 android:textColor="#8D000000" />
         </HorizontalScrollView>
     </LinearLayout>
@@ -152,6 +152,6 @@
         app:layout_constraintEnd_toEndOf="@id/view"
         app:layout_constraintStart_toStartOf="@id/view"
         app:layout_constraintTop_toBottomOf="@+id/userAffil"
-        app:srcCompat="@drawable/img_4" />
+        app:srcCompat="@drawable/img_5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

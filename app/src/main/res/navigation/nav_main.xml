@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/fragHome">
+
+    <fragment
+        android:id="@+id/fragHome"
+        android:name="com.example.cardsnap.activity.fragment.FragHome"
+        android:label="FragHome"
+        tools:layout="@layout/frame_home"/>
+    <fragment
+        android:id="@+id/fragChat"
+        android:name="com.example.cardsnap.activity.fragment.FragChat"
+        android:label="FragChat"
+        tools:layout="@layout/frame_chat"/>
+    <fragment
+        android:id="@+id/fragSystem"
+        android:name="com.example.cardsnap.activity.fragment.FragSystem"
+        android:label="FragSystem"
+        tools:layout="@layout/frame_system">
+        <action
+            android:id="@+id/action_fragSystem_to_fragInput2"
+            app:destination="@id/fragInput2" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragInput2"
+        android:name="com.example.cardsnap.activity.fragment.FragInput"
+        android:label="FragInput"
+        tools:layout="@layout/frame_join_input">
+        <action
+            android:id="@+id/action_fragInput2_to_fragSystem"
+            app:destination="@id/fragSystem" />
+        <action
+            android:id="@+id/action_fragInput2_to_fragChat"
+            app:destination="@id/fragChat" />
+        <action
+            android:id="@+id/action_fragInput2_to_fragHome"
+            app:destination="@id/fragHome" />
+    </fragment>
+</navigation>

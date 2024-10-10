@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="대소고 1학년"
+                android:text="소속"
                 android:textColor="#607C7C7C"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="이기찬"
+                android:text="이름"
                 android:textColor="#7C7C7C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -52,7 +52,7 @@
                 android:background="@drawable/img_circle"
                 android:clipToOutline="true"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/img_1" />
+                app:srcCompat="@drawable/baseline_add_24" />
 
             <TextView
                 android:id="@+id/messageTxt"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="나랑 같이 인문계 탈출할래?"
+                android:text="상태메세지"
                 android:textColor="#7C7C7C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="#나는탈출못함 #4등급 #제주도"
+                android:text="#해시태그"
                 android:textColor="#807C7C7C"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -150,7 +150,7 @@
                             android:layout_weight="1"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:text="17세"
+                            android:text="세"
                             android:textColor="#7C7C7C"
                             android:textSize="16sp"
                             android:gravity="end"
@@ -185,7 +185,7 @@
                             android:layout_weight="1"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:text="공부"
+                            android:text="취미"
                             android:textColor="#7C7C7C"
                             android:textSize="16sp"
                             android:gravity="end"
@@ -212,7 +212,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
-                            android:text="서버"
+                            android:text=""
                             android:textColor="#7C7C7C"
                             android:textSize="16sp"
                             android:textStyle="bold"/>
@@ -254,7 +254,7 @@
                             android:layout_weight="1"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:text="190cm"
+                            android:text="cm"
                             android:textColor="#7C7C7C"
                             android:textSize="16sp"
                             android:gravity="end"
@@ -289,7 +289,7 @@
                             android:layout_weight="1"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:text="50KG"
+                            android:text="KG"
                             android:textColor="#7C7C7C"
                             android:textSize="16sp"
                             android:gravity="end"
@@ -317,7 +317,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
-                            android:text="없음"
+                            android:text=""
                             android:textColor="#7C7C7C"
                             android:textSize="16sp"
                             android:textStyle="bold"/>
@@ -350,7 +350,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="start"
-                    android:text="어쩌고저쩌고"
+                    android:text=""
                     android:textColor="#7C7C7C"
                     android:textSize="16sp" />
             </LinearLayout>

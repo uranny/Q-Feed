@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.databinding.ActivityInProfileBinding
 import com.example.cardsnap.databinding.FrameSystemBinding
-import com.example.cardsnap.fragment.FragSystem
+import com.example.cardsnap.activity.fragment.FragSystem
 import com.example.cardsnap.serverDaechae.Chat
 import com.example.cardsnap.serverDaechae.User
 import java.time.LocalDateTime

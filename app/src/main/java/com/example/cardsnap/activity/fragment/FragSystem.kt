@@ -1,4 +1,4 @@
-package com.example.cardsnap.fragment
+package com.example.cardsnap.activity.fragment
 
 import android.app.Activity
 import android.content.Context
@@ -8,14 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.activity.EditProfileActivity
-import com.example.cardsnap.activity.login.LoginActivity
+import com.example.cardsnap.activity.ServiceActivity
 import com.example.cardsnap.databinding.FrameSystemBinding
 import com.example.cardsnap.serverDaechae.User
 
@@ -56,17 +55,16 @@ class FragSystem : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // view 불러오기
-        showView(view)
+        //showView(view)
 
-        // 프로필 편집 버튼 클릭 시 EditProfileActivity로 이동
         binding.profileEditBtn.setOnClickListener {
-            val intent = Intent(context, EditProfileActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE_EDIT_PROFILE)
+            activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.action_fragSystem_to_fragInput2)
         }
+
 
         // 로그아웃 버튼 클릭 시 LoginActivity로 이동하고 현재 액티비티 종료
         binding.logOutBtn.setOnClickListener {
-            val intent = Intent(context, LoginActivity::class.java)
+            val intent = Intent(context, ServiceActivity::class.java)
             startActivity(intent)
             activity?.finish() // 현재 액티비티 종료
         }
@@ -86,7 +84,7 @@ class FragSystem : Fragment() {
 
     // 뷰를 업데이트하는 함수
     private fun updateView(view: View) {
-        showView(view)
+//        showView(view)
     }
 
 

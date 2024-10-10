@@ -1,18 +1,20 @@
-package com.example.cardsnap.activity.login
+package com.example.cardsnap.activity.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.cardsnap.databinding.ActivityJoinBinding
+import androidx.navigation.fragment.findNavController
+import com.example.cardsnap.R
+import com.example.cardsnap.databinding.FrameJoinBinding
 import com.example.cardsnap.serverDaechae.EditUser
 import com.example.cardsnap.serverDaechae.User
 import java.util.regex.Pattern
 
 class FragJoin : Fragment() {
 
-    private lateinit var binding: ActivityJoinBinding
+    private lateinit var binding: FrameJoinBinding
 
     private val emailRegex: Pattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
     private val passwordRegex: Pattern = Pattern.compile("^[^\\s]+$")
@@ -22,7 +24,7 @@ class FragJoin : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityJoinBinding.inflate(inflater)
+        binding = FrameJoinBinding.inflate(inflater)
         return binding.root
     }
 
@@ -30,6 +32,10 @@ class FragJoin : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.wrongTxt.visibility = View.GONE
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.joinBtn.setOnClickListener {
             checkLogin()
@@ -66,6 +72,7 @@ class FragJoin : Fragment() {
             else -> {
                 binding.wrongTxt.visibility = View.GONE
                 toInputProFrag()
+                findNavController().navigate(R.id.action_fragJoin_to_fragInput)
             }
         }
     }

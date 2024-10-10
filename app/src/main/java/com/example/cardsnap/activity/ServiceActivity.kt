@@ -1,9 +1,7 @@
-package com.example.cardsnap.activity.login
+package com.example.cardsnap.activity
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cardsnap.R
 import com.example.cardsnap.databinding.ActivityServiceBinding
 
 class ServiceActivity : AppCompatActivity() {
@@ -14,9 +12,5 @@ class ServiceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityServiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        if(savedInstanceState == null){
-            supportFragmentManager.beginTransaction().replace(R.id.frame, FragLogin()).commit()
-        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.login
+package com.example.cardsnap.activity.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,28 +7,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.transition.Visibility
+import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.activity.MainActivity
 import com.example.cardsnap.data.auth.AuthRequestManager
 import com.example.cardsnap.data.auth.LoginRequest
-import com.example.cardsnap.databinding.ActivityLoginBinding
-import com.example.cardsnap.serverDaechae.User
+import com.example.cardsnap.data.user.UserInfo
+import com.example.cardsnap.data.user.addPost
+import com.example.cardsnap.databinding.FrameLoginBinding
 import kotlinx.coroutines.launch
 
 class FragLogin() : Fragment(){
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding : FrameLoginBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityLoginBinding.inflate(inflater)
+        binding = FrameLoginBinding.inflate(inflater)
         return binding.root
     }
 
@@ -38,24 +38,20 @@ class FragLogin() : Fragment(){
         binding.wrongTxt.visibility = View.GONE
 
         binding.loginBtn.setOnClickListener {
-            loginRequest()
+//            loginRequest()
+
+            goMain()
+
         }
 
         binding.joinBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_fragLogin_to_fragJoin)
         }
     }
 
     private fun showWrongTxt(text : String){
         binding.wrongTxt.visibility = View.VISIBLE
         binding.wrongTxt.setText(text)
-    }
-
-    private fun getUserIdex(inputId : String) : Int{
-        return when{
-            inputId in User.idLst -> User.idLst.indexOf(inputId)
-            inputId in User.emailLst -> User.emailLst.indexOf(inputId)
-            else -> -1
-        }
     }
 
     private fun loginRequest(){
@@ -79,10 +75,7 @@ class FragLogin() : Fragment(){
                 Log.d("mine", "accesstoken is $accessToken")
                 Log.d("mine", "refreshtoken is $refreshToken")
 
-                getUserIdex(id)
-
-                val intent = Intent(requireActivity(), MainActivity::class.java)
-                startActivity(intent)
+                goMain()
 
             } catch (e: retrofit2.HttpException){
                 showWrongTxt("아이디, 비번이 잘못되었스빈다")
@@ -93,6 +86,16 @@ class FragLogin() : Fragment(){
             }
         }
 
+    }
+
+    private fun goMain(){
+        UserInfo.postLst = arrayListOf()
+        UserInfo.postPosition = 1
+        addPost()
+
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
 }

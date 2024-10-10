@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.login
+package com.example.cardsnap.activity.secret
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,17 +10,17 @@ import androidx.lifecycle.lifecycleScope
 import com.example.cardsnap.activity.MainActivity
 import com.example.cardsnap.data.auth.AuthRequestManager
 import com.example.cardsnap.data.auth.LoginRequest
-import com.example.cardsnap.databinding.ActivityLoginBinding
+import com.example.cardsnap.databinding.FrameLoginBinding
 import com.example.cardsnap.serverDaechae.User
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: FrameLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = FrameLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.wrongTxt.visibility = View.GONE

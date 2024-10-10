@@ -6,21 +6,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.transition.Visibility
 import com.bumptech.glide.Glide
 import com.example.cardsnap.R
-import com.example.cardsnap.databinding.ActivityProfileEditBinding
+import com.example.cardsnap.databinding.FrameProfileEditBinding
 import com.example.cardsnap.serverDaechae.User
 
 class EditProfileActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityProfileEditBinding
+    private lateinit var binding: FrameProfileEditBinding
 
     private var setURI: String = User.postLst[User.profileIndex].userImg
 
@@ -29,7 +26,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityProfileEditBinding.inflate(layoutInflater)
+        binding = FrameProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val post = User.postLst[User.profileIndex]

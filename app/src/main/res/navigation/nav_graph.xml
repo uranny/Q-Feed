@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragLogin">
+
+    <fragment
+        android:id="@+id/fragLogin"
+        android:name="com.example.cardsnap.activity.fragment.FragLogin"
+        android:label="FragLogin"
+        tools:layout="@layout/frame_login" >
+        <action
+            android:id="@+id/action_fragLogin_to_fragJoin"
+            app:destination="@id/fragJoin" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragJoin"
+        android:name="com.example.cardsnap.activity.fragment.FragJoin"
+        android:label="FragJoin"
+        tools:layout="@layout/frame_join" >
+        <action
+            android:id="@+id/action_fragJoin_to_fragInput"
+            app:destination="@id/fragInput" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragInput"
+        android:name="com.example.cardsnap.activity.fragment.FragInput"
+        android:label="FragInput"
+        tools:layout="@layout/frame_join_input">
+        <action
+            android:id="@+id/action_fragInput_to_fragLogin"
+            app:destination="@id/fragLogin" />
+    </fragment>
+</navigation>
