@@ -41,7 +41,7 @@ class PostAdapter(private val postLst: ArrayList<Post>) : RecyclerView.Adapter<P
 
         Glide.with(holder.itemView.context)
             .load(Uri.parse(imageUri)) // content:// URI를 Uri 객체로 변환
-            .error(R.drawable.img_4)   // 에러 시 표시할 이미지
+            .error(R.drawable.img_5)   // 에러 시 표시할 이미지
             .into(binding.userImg)      // 이미지를 ImageView에 로드
 
         Log.d("setImg", "이미지 호출 ${imageUri}")

@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity
+package com.example.cardsnap.activity.secret
 
 import android.Manifest
 import android.app.Activity

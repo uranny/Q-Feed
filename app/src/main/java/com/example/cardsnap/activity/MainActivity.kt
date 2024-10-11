@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        Toast.makeText(this, "${UserInfo.accessToken}", Toast.LENGTH_SHORT).show()
+
         // NavHostFragment를 가져와서 NavController 설정
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController

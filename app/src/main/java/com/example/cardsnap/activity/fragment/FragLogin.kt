@@ -38,9 +38,8 @@ class FragLogin() : Fragment(){
         binding.wrongTxt.visibility = View.GONE
 
         binding.loginBtn.setOnClickListener {
-//            loginRequest()
+            loginRequest()
 
-            goMain()
 
         }
 
@@ -75,6 +74,7 @@ class FragLogin() : Fragment(){
                 Log.d("mine", "accesstoken is $accessToken")
                 Log.d("mine", "refreshtoken is $refreshToken")
 
+                UserInfo.accessToken = accessToken
                 goMain()
 
             } catch (e: retrofit2.HttpException){

@@ -10,17 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cardsnap.R
-import com.example.cardsnap.activity.EditProfileActivity
 import com.example.cardsnap.activity.ServiceActivity
 import com.example.cardsnap.databinding.FrameSystemBinding
 import com.example.cardsnap.serverDaechae.User
 
 class FragSystem : Fragment() {
 
-    lateinit var binding : FrameSystemBinding
+    lateinit var binding: FrameSystemBinding
 
     // 프로필 수정 액티비티에 사용될 요청 코드를 상수로 정의
     companion object {
@@ -58,9 +56,9 @@ class FragSystem : Fragment() {
         //showView(view)
 
         binding.profileEditBtn.setOnClickListener {
-            activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.action_fragSystem_to_fragInput2)
+            activity?.findNavController(R.id.nav_host_fragment)
+                ?.navigate(R.id.action_fragSystem_to_fragInput2)
         }
-
 
         // 로그아웃 버튼 클릭 시 LoginActivity로 이동하고 현재 액티비티 종료
         binding.logOutBtn.setOnClickListener {
@@ -89,11 +87,11 @@ class FragSystem : Fragment() {
 
 
     // view를 설정하는 함수
-    private fun showView(view : View){
+    private fun showView(view: View) {
         // 사용자 프로필 정보 다시 가져오기
         val userProfile = User.postLst[User.profileIndex]
 
-        with(binding){
+        with(binding) {
             afilTxt?.text = userProfile.userAffil
             nameTxt?.text = userProfile.userName
             messageTxt?.text = userProfile.messagetxt

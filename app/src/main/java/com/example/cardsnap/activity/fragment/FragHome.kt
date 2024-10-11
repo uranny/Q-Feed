@@ -39,8 +39,6 @@ class FragHome : Fragment() {
                 val firstVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager)
                     .findFirstVisibleItemPosition()
 
-                Toast.makeText(context, "$firstVisibleItemPosition", Toast.LENGTH_SHORT).show()
-
                 if (firstVisibleItemPosition == (UserInfo.postLst.size - 1)) {
                     addPost()
                     postAdapter.notifyItemInserted(UserInfo.postLst.size - 1) // 추가된 항목만 갱신

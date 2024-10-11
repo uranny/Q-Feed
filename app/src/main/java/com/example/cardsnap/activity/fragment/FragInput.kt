@@ -1,15 +1,18 @@
 package com.example.cardsnap.activity.fragment
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.core.app.ActivityCompat
@@ -17,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
+import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameJoinInputBinding
 import com.example.cardsnap.serverDaechae.EditUser
 import com.example.cardsnap.serverDaechae.Post
@@ -30,6 +34,7 @@ class FragInput : Fragment() {
     private var setURI: String = ""  // 선택된 이미지 URI를 저장할 변수
     private val REQUEST_IMAGE_PICK = 1  // 이미지 선택 요청 코드
     private val REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 2  // 외부 저장소 권한 요청 코드
+    private lateinit var callback: OnBackPressedCallback
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -68,7 +73,15 @@ class FragInput : Fragment() {
 
         // 완료 버튼 클릭 리스너
         binding.finishBtn.setOnClickListener {
-            findNavController().popBackStack(R.id.fragLogin, false)
+            try {
+                if (UserInfo.accessToken != null) {
+                    findNavController().popBackStack()
+                } else {
+                    findNavController().popBackStack(R.id.fragLogin, false)
+                }
+            } catch (e: Exception) {
+                Log.e("mine", "${e.message}")
+            }
         }
 
         // 뒤로가기 버튼 클릭 리스너
@@ -118,6 +131,5 @@ class FragInput : Fragment() {
             binding.editImg.setImageURI(Uri.parse(setURI))
         }
     }
-
 
 }
