@@ -24,10 +24,10 @@
             android:name=".activity.MainActivity"
             android:exported="false"/>
         <activity
-            android:name=".activity.OtherActivity"
+            android:name=".activity.secret.OtherActivity"
             android:exported="false"/>
         <activity
-            android:name=".activity.InChatActivity"
+            android:name=".activity.secret.InChatActivity"
             android:exported="false"/>
         <activity
             android:name=".activity.ServiceActivity"

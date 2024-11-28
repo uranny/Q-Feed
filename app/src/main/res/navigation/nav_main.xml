@@ -9,12 +9,20 @@
         android:id="@+id/fragHome"
         android:name="com.example.cardsnap.activity.fragment.FragHome"
         android:label="FragHome"
-        tools:layout="@layout/frame_home"/>
+        tools:layout="@layout/frame_home" >
+        <action
+            android:id="@+id/action_fragHome_to_fragOther"
+            app:destination="@id/fragOther" />
+    </fragment>
     <fragment
         android:id="@+id/fragChat"
         android:name="com.example.cardsnap.activity.fragment.FragChat"
         android:label="FragChat"
-        tools:layout="@layout/frame_chat"/>
+        tools:layout="@layout/frame_chat">
+        <action
+            android:id="@+id/action_fragChat_to_fragInChat"
+            app:destination="@id/fragInChat" />
+    </fragment>
     <fragment
         android:id="@+id/fragSystem"
         android:name="com.example.cardsnap.activity.fragment.FragSystem"
@@ -32,11 +40,29 @@
         <action
             android:id="@+id/action_fragInput2_to_fragSystem"
             app:destination="@id/fragSystem" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragOther"
+        android:name="com.example.cardsnap.activity.fragment.FragOther"
+        android:label="FragOther"
+        tools:layout="@layout/frame_in_profile">
         <action
-            android:id="@+id/action_fragInput2_to_fragChat"
+            android:id="@+id/action_fragOther_to_fragHome"
+            app:destination="@id/fragHome" />
+        <action
+            android:id="@+id/action_fragOther_to_fragInChat"
+            app:destination="@id/fragInChat" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragInChat"
+        android:name="com.example.cardsnap.activity.fragment.FragInChat"
+        android:label="FragInChat"
+        tools:layout="@layout/frame_in_chat">
+        <action
+            android:id="@+id/action_fragInChat_to_fragChat"
             app:destination="@id/fragChat" />
         <action
-            android:id="@+id/action_fragInput2_to_fragHome"
-            app:destination="@id/fragHome" />
+            android:id="@+id/action_fragInChat_to_fragOther"
+            app:destination="@id/fragOther" />
     </fragment>
 </navigation>

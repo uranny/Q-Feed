@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.activity.ServiceActivity
+import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameSystemBinding
 import com.example.cardsnap.serverDaechae.User
 
@@ -44,7 +45,7 @@ class FragSystem : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FrameSystemBinding.inflate(inflater)
+        binding = FrameSystemBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -67,8 +68,24 @@ class FragSystem : Fragment() {
             activity?.finish() // 현재 액티비티 종료
         }
 
+        if(UserInfo.otherIndex != -1){
+            setProfileVisibility()
+        }
+
         // 리스너 호출하여 View가 생성되었음을 알림
         listener?.onFragmentViewCreated(view)
+    }
+
+    fun setProfileVisibility() {
+        with(binding) {
+            profileEditBtn.visibility = View.GONE
+            logOutBtn.visibility = View.GONE
+            chatInBtn.visibility = View.VISIBLE
+            chatInBtn.setOnClickListener {
+                activity?.findNavController(R.id.nav_host_fragment)
+                    ?.navigate(R.id.action_fragOther_to_fragInChat)
+            }
+        }
     }
 
     // 프로필 편집 후 결과를 처리하는 함수

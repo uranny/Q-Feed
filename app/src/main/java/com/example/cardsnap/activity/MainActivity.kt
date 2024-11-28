@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -45,32 +46,53 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeBtn -> {
-                    navController.navigate(R.id.fragHome)
+                    // Home은 BackStack에 쌓이지 않게 설정
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.fragHome, false)
+                        .build()
+                    navController.navigate(R.id.fragHome, null, navOptions)
                     true
                 }
                 R.id.chatBtn -> {
-                    navController.navigate(R.id.fragChat)
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.fragChat, false)
+                        .build()
+                    navController.navigate(R.id.fragChat, null, navOptions)
                     true
                 }
                 R.id.profileBtn -> {
-                    navController.navigate(R.id.fragSystem)
+                    UserInfo.otherIndex = -1
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.fragSystem, false)
+                        .build()
+                    navController.navigate(R.id.fragSystem, null, navOptions)
                     true
                 }
                 else -> false
             }
         }
+
     }
 
 
     override fun onBackPressed() {
-        val curTime: Long = System.currentTimeMillis()
-        val gapTime: Long = curTime - backBtnTime
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val currentNav = navHostFragment.childFragmentManager.fragments[0]
 
-        if (gapTime in 0..2000) {
-            super.onBackPressed()
-        } else {
-            backBtnTime = curTime
-            Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        if (currentNav is FragChat || currentNav is FragHome || currentNav is FragSystem) {
+            // BackStack이 비어 있을 경우 종료 로직 실행
+            val curTime: Long = System.currentTimeMillis()
+            val gapTime: Long = curTime - backBtnTime
+
+            if (gapTime in 0..2000) {
+                super.onBackPressed()  // 앱 종료
+            } else {
+                backBtnTime = curTime
+                Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            }
+        } else{
+            navHostFragment.navController.popBackStack()
         }
     }
 }

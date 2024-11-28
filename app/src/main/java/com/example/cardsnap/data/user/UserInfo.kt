@@ -7,10 +7,11 @@ import com.example.cardsnap.serverDaechae.Post
 object UserInfo{
     var accessToken : String? = null
     var postPosition = 1
+    var otherIndex = -1
 
     //recycleView 관련 리스트
     val chatLst = arrayListOf<ArrayList<Chat>>()
-    var postLst : ArrayList<Post> =  arrayListOf()
+    var postLst : ArrayList<Post> = arrayListOf()
 
 }
 

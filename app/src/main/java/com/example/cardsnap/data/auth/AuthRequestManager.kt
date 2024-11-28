@@ -42,11 +42,11 @@ object AuthRequestManager {
 
     suspend fun registerRequest(registerData : RegisterRequest) : Response<RegisterResponse>{
         val response = authService.register(registerData)
+        Log.d("response", "$response")
         if (!response.isSuccessful){
             throw retrofit2.HttpException(response)
         }
         return response
     }
-
 
 }

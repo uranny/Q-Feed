@@ -1,11 +1,11 @@
 package com.example.cardsnap.activity.fragment
 
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -13,29 +13,38 @@ import com.example.cardsnap.R
 import com.example.cardsnap.adapter.PostAdapter
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.data.user.addPost
+import com.example.cardsnap.databinding.FrameHomeBinding
 import com.example.cardsnap.serverDaechae.Post
 
-class FragHome : Fragment() {
+class FragHome : androidx.fragment.app.Fragment() {
 
     private lateinit var postAdapter: PostAdapter
+    private lateinit var binding: FrameHomeBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val frameHome = inflater.inflate(R.layout.frame_home, container, false)
+        binding = FrameHomeBinding.inflate(inflater)
 
-        val postView = frameHome.findViewById<RecyclerView>(R.id.recycleView)
+        val postView = binding.recycleView
         val userLst = UserInfo.postLst
 
-        postAdapter = PostAdapter(userLst)
-        postView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val navController = findNavController()
+
+        postAdapter = PostAdapter(userLst, navController) { postItem -> showBottomSheet() }
+        postView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         postView.adapter = postAdapter
 
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(postView)
 
-        postView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
                 val firstVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager)
                     .findFirstVisibleItemPosition()
 
@@ -45,7 +54,11 @@ class FragHome : Fragment() {
                 }
             }
         })
-
-        return frameHome
     }
+
+    private fun showBottomSheet() {
+        val bottomSheet = CmtBottomSheet()
+        bottomSheet.show(childFragmentManager, "Tag")
+    }
+
 }

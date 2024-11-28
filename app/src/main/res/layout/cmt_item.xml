@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:layout_marginBottom="5dp">
+
+    <ImageView
+        android:id="@+id/userImg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/img_5"
+        android:clipToOutline="true"
+        android:background="@drawable/img_circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/userImg"
+        app:layout_constraintTop_toTopOf="@id/userImg"
+        android:layout_marginStart="5dp"
+        android:text="string"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/userAffil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/userName"
+        app:layout_constraintBottom_toBottomOf="@id/userName"
+        android:layout_marginStart="5dp"
+        android:text="string"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="#A1A1A1"/>
+
+    <TextView
+        android:id="@+id/cmtTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Jehahahaha"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toEndOf="@id/userImg"
+        app:layout_constraintTop_toBottomOf="@id/userName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

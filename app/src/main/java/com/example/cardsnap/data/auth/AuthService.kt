@@ -17,6 +17,6 @@ interface AuthService {
 
     @POST("/auth/register")
     suspend fun register(
-        @Body loginRequest : RegisterRequest
+        @Body registerRequest : RegisterRequest
     ): Response<RegisterResponse>
 }

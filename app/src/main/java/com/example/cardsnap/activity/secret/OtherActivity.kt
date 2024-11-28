@@ -1,37 +1,30 @@
-package com.example.cardsnap.activity
+package com.example.cardsnap.activity.secret
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.example.cardsnap.R
-import com.example.cardsnap.databinding.ActivityInProfileBinding
 import com.example.cardsnap.databinding.FrameSystemBinding
 import com.example.cardsnap.activity.fragment.FragSystem
+import com.example.cardsnap.databinding.FrameInProfileBinding
 import com.example.cardsnap.serverDaechae.Chat
 import com.example.cardsnap.serverDaechae.User
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import kotlin.reflect.typeOf
 
 class OtherActivity : AppCompatActivity(), FragSystem.OnFragmentInteractionListener {
 
-    lateinit var binding: ActivityInProfileBinding
+    lateinit var binding: FrameInProfileBinding
     lateinit var fragBinding : FrameSystemBinding
     private val post = User.postLst[User.profileIndex]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInProfileBinding.inflate(layoutInflater)
+        binding = FrameInProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.backBtn.setOnClickListener {

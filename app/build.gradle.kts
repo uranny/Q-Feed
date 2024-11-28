@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.circleimageview)
     implementation(libs.glide)
+    implementation(libs.androidx.material3.android)
 
     // Testing libraries
     testImplementation(libs.junit)

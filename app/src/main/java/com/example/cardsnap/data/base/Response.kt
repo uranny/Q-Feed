@@ -7,5 +7,6 @@ data class LoginResponse(
 )
 
 data class RegisterResponse(
-    val message: String
+    val message: String,
+    val error : String?
 )

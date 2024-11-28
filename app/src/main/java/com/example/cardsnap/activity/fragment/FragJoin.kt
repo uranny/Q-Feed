@@ -1,15 +1,25 @@
 package com.example.cardsnap.activity.fragment
 
 import android.os.Bundle
+import android.service.controls.ControlsProviderService.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
+import com.example.cardsnap.data.auth.AuthRequestManager
+import com.example.cardsnap.data.auth.LoginRequest
+import com.example.cardsnap.data.auth.RegisterRequest
+import com.example.cardsnap.data.base.RegisterResponse
+import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameJoinBinding
 import com.example.cardsnap.serverDaechae.EditUser
 import com.example.cardsnap.serverDaechae.User
+import kotlinx.coroutines.launch
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class FragJoin : Fragment() {
@@ -71,8 +81,7 @@ class FragJoin : Fragment() {
             // 문제 없다면
             else -> {
                 binding.wrongTxt.visibility = View.GONE
-                toInputProFrag()
-                findNavController().navigate(R.id.action_fragJoin_to_fragInput)
+                registerRequest(id, pass, email)
             }
         }
     }
@@ -82,10 +91,24 @@ class FragJoin : Fragment() {
         binding.wrongTxt.setText(msg)
     }
 
-    private fun toInputProFrag(){
-        EditUser.inputEmail = binding.inputEmail.text.toString()
-        EditUser.inputId = binding.inputId.text.toString()
-        EditUser.inputPass = binding.inputPass.text.toString().trim()
+    private fun registerRequest(id : String, pw : String, email : String){
+        lifecycleScope.launch {
+            var response : Response<RegisterResponse>? = null
+            try {
+                val registerRequest = RegisterRequest(id, pw, email)
+                response = AuthRequestManager.registerRequest(registerRequest)
+                Log.d(TAG, "resoponse.header : ${response.code()}")
+
+                findNavController().popBackStack()
+
+            } catch (e: retrofit2.HttpException){
+                showError("${response?.body()?.error}")
+                Log.e("mine", "${e.message}")
+            } catch (e: Exception){
+                showError("나는 아무거또 멀라요")
+                Log.e("mine", "${e.message}")
+            }
+        }
     }
 
 

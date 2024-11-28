@@ -23,7 +23,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"/>
 
-    <FrameLayout
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/otherProfile"
         android:layout_width="0dp"
         android:layout_height="0dp"
