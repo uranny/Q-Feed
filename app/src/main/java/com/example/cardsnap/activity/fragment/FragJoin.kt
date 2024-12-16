@@ -55,19 +55,12 @@ class FragJoin : Fragment() {
 
     // 에러 검사
     private fun checkLogin() {
-        val email : String? = binding.inputEmail.text.toString()
         val id : String? = binding.inputId.text.toString()
         val pass : String? = binding.inputPass.text.toString().trim()
 
         when{
             // 빈칸 확인
-            (email.isNullOrBlank() || id.isNullOrBlank() || pass.isNullOrBlank()) -> showError("빈칸을 입력해주세요")
-
-            // 이메일 중복 확인
-            (email in User.emailLst) -> showError("이미 있는 이메일입니다")
-
-            // 이메일 형식 확인
-            (!emailRegex.matcher(email).matches()) -> showError("이메일 형식이 잘못되었습니다")
+            (id.isNullOrBlank() || pass.isNullOrBlank()) -> showError("빈칸을 입력해주세요")
 
             // 비밀번호 최소길이 확인
             (pass.length < 8) -> showError("비밀번호의 최소길이는 8자리 이상입니다")
@@ -81,7 +74,7 @@ class FragJoin : Fragment() {
             // 문제 없다면
             else -> {
                 binding.wrongTxt.visibility = View.GONE
-                registerRequest(id, pass, email)
+                registerRequest(id, pass)
             }
         }
     }
@@ -91,18 +84,18 @@ class FragJoin : Fragment() {
         binding.wrongTxt.setText(msg)
     }
 
-    private fun registerRequest(id : String, pw : String, email : String){
+    private fun registerRequest(id : String, pw : String){
         lifecycleScope.launch {
             var response : Response<RegisterResponse>? = null
             try {
-                val registerRequest = RegisterRequest(id, pw, email)
+                val registerRequest = RegisterRequest(id, pw)
                 response = AuthRequestManager.registerRequest(registerRequest)
                 Log.d(TAG, "resoponse.header : ${response.code()}")
 
                 findNavController().popBackStack()
 
             } catch (e: retrofit2.HttpException){
-                showError("${response?.body()?.error}")
+                showError("${response?.body()?.message}")
                 Log.e("mine", "${e.message}")
             } catch (e: Exception){
                 showError("나는 아무거또 멀라요")

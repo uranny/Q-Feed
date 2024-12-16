@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -46,14 +47,14 @@ class FragLogin() : Fragment(){
         }
     }
 
-    private fun showWrongTxt(text : String){
+    private fun showTxt(text : String){
         binding.wrongTxt.visibility = View.VISIBLE
         binding.wrongTxt.setText(text)
     }
 
     private fun loginRequest(){
         if (binding.inputId.text.isEmpty() || binding.inputPass.text.isEmpty()){
-            showWrongTxt("빈칸을 입력해주세요")
+            showTxt("빈칸을 입력해주세요")
             return
         }
 
@@ -64,21 +65,25 @@ class FragLogin() : Fragment(){
             try {
                 val loginRequest = LoginRequest(id, pw)
                 val response = AuthRequestManager.loginRequest(loginRequest)
-                Log.d(TAG, "resoponse.header : ${response.code()}")
+                Log.d("loginRequest", "${response.body()}")
 
-                val accessToken = response.body()?.accessToken
-                val refreshToken = response.body()?.refreshToken
-                Log.d("mine", "accesstoken is $accessToken")
-                Log.d("mine", "refreshtoken is $refreshToken")
+                UserInfo.accessToken = response.body()?.data?.accessToken
+                UserInfo.refreshToken = response.body()?.data?.refreshToken
+                UserInfo.tokenType = response.body()?.data?.tokenType
+                UserInfo.userId = id
 
-                UserInfo.accessToken = accessToken
-                goMain()
+                if(UserInfo.accessToken != null){
+                    Toast.makeText(requireContext(), "${response.body()?.message}", Toast.LENGTH_SHORT).show()
+                    goMain()
+                }else{
+                    showTxt("토큰을 받아오지 못하였습니다")
+                }
 
             } catch (e: retrofit2.HttpException){
-                showWrongTxt("아이디, 비번이 잘못되었스빈다")
+                showTxt("아이디, 비번이 잘못되었스빈다")
                 Log.e("mine", "${e.message}")
             } catch (e: Exception){
-                showWrongTxt("나는 아무거또 멀라요")
+                showTxt("나는 아무거또 멀라요")
                 Log.e("mine", "${e.message}")
             }
         }

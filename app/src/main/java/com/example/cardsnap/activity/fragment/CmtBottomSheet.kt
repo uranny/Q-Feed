@@ -1,21 +1,27 @@
 package com.example.cardsnap.activity.fragment
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cardsnap.R
 import com.example.cardsnap.adapter.CmtAdapter
 import com.example.cardsnap.databinding.CommentBottomBinding
 import com.example.cardsnap.serverDaechae.Cmt
+import com.example.cardsnap.serverDaechae.User.cmtLst
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.w3c.dom.Comment
+import java.time.LocalDateTime
 
 class CmtBottomSheet : BottomSheetDialogFragment() {
 
     lateinit var binding : CommentBottomBinding
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,20 +30,6 @@ class CmtBottomSheet : BottomSheetDialogFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         binding = CommentBottomBinding.inflate(inflater)
-        val cmtLst = arrayListOf<Cmt>(
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha"),
-            Cmt("아마", "string", "string", "jehahaha")
-            )
 
         val cmtAdapter = CmtAdapter(cmtLst)
 
@@ -47,8 +39,19 @@ class CmtBottomSheet : BottomSheetDialogFragment() {
         binding.commentRecyclerView.adapter = cmtAdapter
 
         binding.sendBtn.setOnClickListener{
-            if (!(binding.commentTxt.text.isNullOrEmpty())){
-                cmtLst.add(0, Cmt("아마", "string", "string", binding.commentTxt.text.toString()))
+            val comment = binding.editTxt.text?.toString()?.trim()
+            Log.d("cmt", "$comment")
+            if (!comment.isNullOrEmpty()){
+                cmtLst.add(
+                    0,
+                    Cmt(
+                        "아마",
+                        "string",
+                        "string",
+                        comment,
+                        LocalDateTime.now()
+                    )
+                )
                 cmtAdapter.notifyItemInserted(0)
                 binding.commentRecyclerView.scrollToPosition(0)
                 binding.editTxt.text?.clear() // 입력 필드 초기화

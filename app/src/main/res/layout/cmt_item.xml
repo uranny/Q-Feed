@@ -42,15 +42,29 @@
 
     <TextView
         android:id="@+id/cmtTxt"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Jehahahaha"
+        android:layout_marginTop="5dp"
+        android:text="JehahahahaJehahahahaJehahahahaJehahahaha"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
+        android:maxWidth="200dp"
         app:layout_constraintStart_toEndOf="@id/userImg"
         app:layout_constraintTop_toBottomOf="@id/userName" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="몇시 몇분"
+        app:layout_constraintStart_toEndOf="@id/cmtTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/cmtTxt"
+        android:textSize="10sp"
+        app:layout_constraintHorizontal_bias="0.00"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd= "5dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

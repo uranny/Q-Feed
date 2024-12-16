@@ -1,12 +1,12 @@
 package com.example.cardsnap.data.auth
 
-import android.telecom.Call
 import com.example.cardsnap.data.base.LoginResponse
 import com.example.cardsnap.data.base.RegisterResponse
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface AuthService {
 
@@ -17,6 +17,6 @@ interface AuthService {
 
     @POST("/auth/register")
     suspend fun register(
-        @Body registerRequest : RegisterRequest
+        @Body authRegisterRequest : RegisterRequest
     ): Response<RegisterResponse>
 }

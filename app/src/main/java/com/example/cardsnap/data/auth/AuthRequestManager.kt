@@ -9,7 +9,9 @@ import androidx.annotation.RequiresExtension
 import com.example.cardsnap.data.base.LoginResponse
 import com.example.cardsnap.data.base.RegisterResponse
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import okhttp3.OkHttpClient
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +20,7 @@ import java.util.concurrent.TimeUnit
 
 object AuthRequestManager {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://ec2-43-201-132-136.ap-northeast-2.compute.amazonaws.com:8080/")
+        .baseUrl("https://qfeed-api.euns.dev/")
         .client(
             OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
@@ -41,8 +43,9 @@ object AuthRequestManager {
     }
 
     suspend fun registerRequest(registerData : RegisterRequest) : Response<RegisterResponse>{
+
         val response = authService.register(registerData)
-        Log.d("response", "$response")
+        Log.d("register", "$response")
         if (!response.isSuccessful){
             throw retrofit2.HttpException(response)
         }

@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.cardsnap.activity.MainActivity
 import com.example.cardsnap.data.auth.AuthRequestManager
 import com.example.cardsnap.data.auth.LoginRequest
+import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameLoginBinding
 import com.example.cardsnap.serverDaechae.User
 import kotlinx.coroutines.launch
@@ -36,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun showWrongTxt(text : String){
+    private fun showTxt(text : String){
         binding.wrongTxt.visibility = View.VISIBLE
         binding.wrongTxt.setText(text)
     }
@@ -51,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginRequest(){
         if (binding.inputId.text.isEmpty() || binding.inputPass.text.isEmpty()){
-            showWrongTxt("빈칸을 입력해주세요")
+            showTxt("빈칸을 입력해주세요")
             return
         }
 
@@ -65,10 +66,9 @@ class LoginActivity : AppCompatActivity() {
                 Log.d(TAG, "resoponse.header : ${response.code()}")
                 Log.d(TAG, "LoginFragment loginbutton click5")
 
-                val accessToken = response.body()?.accessToken
-                val refreshToken = response.body()?.refreshToken
-                Log.d("mine", "accesstoken is $accessToken")
-                Log.d("mine", "refreshtoken is $refreshToken")
+                UserInfo.accessToken = response.body()?.data?.accessToken
+                UserInfo.refreshToken = response.body()?.data?.refreshToken
+                UserInfo.tokenType = response.body()?.data?.tokenType
 
                 getUserIdex(id)
 
@@ -76,10 +76,10 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
 
             } catch (e: retrofit2.HttpException){
-                showWrongTxt("아이디, 비번이 잘못되었스빈다")
+                showTxt("아이디, 비번이 잘못되었스빈다")
                 Log.e("mine", "${e.message}")
             } catch (e: Exception){
-                showWrongTxt("나는 아무거또 멀리요")
+                showTxt("나는 아무거또 멀리요")
                 Log.e("mine", "${e.message}")
             }
         }

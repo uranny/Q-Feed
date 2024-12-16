@@ -70,6 +70,7 @@ class PostAdapter(private val postLst: ArrayList<Post>,
 
     // 좋아요 개수 설정
     private fun likeBtn(binding: UserListBinding, post: Post){
+        binding.likeBtn.setImageResource(R.drawable.baseline_favorite_24)
     }
 
     // 다른 유저 프로필 보기

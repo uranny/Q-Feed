@@ -5,7 +5,10 @@ import com.example.cardsnap.serverDaechae.Chat
 import com.example.cardsnap.serverDaechae.Post
 
 object UserInfo{
+    var userId : String = ""
     var accessToken : String? = null
+    var refreshToken : String? = null
+    var tokenType : String? = null
     var postPosition = 1
     var otherIndex = -1
 

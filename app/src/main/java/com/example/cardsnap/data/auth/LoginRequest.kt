@@ -1,6 +1,6 @@
 package com.example.cardsnap.data.auth
 
 data class LoginRequest(
-    val username : String,
+    val uid : String,
     val password: String
 )

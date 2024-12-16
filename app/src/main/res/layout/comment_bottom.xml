@@ -32,6 +32,7 @@
         android:id="@+id/editTxt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:maxHeight="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/sendBtn"
@@ -53,6 +54,6 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toEndOf="@id/editTxt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/editTxt" />
+        app:layout_constraintBottom_toBottomOf="@id/editTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
