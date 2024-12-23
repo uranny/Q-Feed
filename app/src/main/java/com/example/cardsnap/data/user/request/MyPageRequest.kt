@@ -5,6 +5,7 @@ data class MyPageRequest(
     val uid : String,
     val usernname : String,
     val affiliation : String,
+    val grade : String,
     val imageUrl : String,
     val statusMessage : String,
     val hashtags : List<String>,

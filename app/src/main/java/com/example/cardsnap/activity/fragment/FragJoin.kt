@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -88,18 +89,25 @@ class FragJoin : Fragment() {
         lifecycleScope.launch {
             var response : Response<RegisterResponse>? = null
             try {
-                val registerRequest = RegisterRequest(id, pw)
+                val registerRequest = RegisterRequest(
+                    id,
+                    pw
+                )
                 response = AuthRequestManager.registerRequest(registerRequest)
-                Log.d(TAG, "resoponse.header : ${response.code()}")
+                Log.d("join", "resoponse.header : ${response.body()}")
 
-                findNavController().popBackStack()
+                UserInfo.accessToken = response.body()?.message
+
+                Toast.makeText(requireContext(), "회원가입 성공", Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.action_fragJoin_to_fragInput)
 
             } catch (e: retrofit2.HttpException){
                 showError("${response?.body()?.message}")
-                Log.e("mine", "${e.message}")
+                Log.e("join", "${e.message}")
             } catch (e: Exception){
                 showError("나는 아무거또 멀라요")
-                Log.e("mine", "${e.message}")
+                Log.e("join", "${e.message}")
             }
         }
     }

@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.circleimageview)
     implementation(libs.glide)
     implementation(libs.androidx.material3.android)
+    implementation(libs.okhttp)
 
     // Testing libraries
     testImplementation(libs.junit)

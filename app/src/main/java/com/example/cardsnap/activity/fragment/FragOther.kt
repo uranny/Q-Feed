@@ -36,6 +36,5 @@ class FragOther : Fragment() {
     private fun setFrag() {
         val ft = childFragmentManager.beginTransaction()
         ft.replace(R.id.otherProfile, FragSystem()).commit()
-
     }
 }

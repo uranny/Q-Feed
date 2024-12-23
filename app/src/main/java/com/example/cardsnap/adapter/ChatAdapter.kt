@@ -16,7 +16,7 @@ class ChatAdapter(private val chatLst: ArrayList<InChat>) : RecyclerView.Adapter
 
     override fun getItemViewType(position: Int): Int {
         return when(chatLst[position].id){
-            UserInfo.userId -> 1
+            UserInfo.myId -> 1
             else -> 0
         }
     }

@@ -43,7 +43,7 @@ class FragInChat : Fragment() {
         binding.sendBtn.setOnClickListener {
             val newMessage = binding.editTxt.text?.toString()?.trim()
             if (!newMessage.isNullOrEmpty()) {
-                inChatLst.add(InChat("string", newMessage, LocalDateTime.now()))
+                inChatLst.add(InChat(1, newMessage, LocalDateTime.now()))
                 adapter.notifyItemInserted(inChatLst.size - 1)
                 adapter.notifyItemChanged(inChatLst.size - 2 )// 추가된 항목만 업데이트
                 binding.chatRecyclerView.scrollToPosition(inChatLst.size - 1) // 마지막으로 스크롤

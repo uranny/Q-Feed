@@ -26,8 +26,8 @@ object User {
     val postLst : ArrayList<Post> = arrayListOf()
     @RequiresApi(Build.VERSION_CODES.O)
     val inChatLst = arrayListOf<InChat>(
-        InChat("uranny", "안녕 내 친구", LocalDateTime.of(2024, 11, 28, 10, 10, 10)),
-        InChat("uranny", "내 이름은 오정민이야 반가우이!", LocalDateTime.of(2024, 11, 28, 10, 10, 10))
+        InChat(0, "안녕 내 친구", LocalDateTime.of(2024, 11, 28, 10, 10, 10)),
+        InChat(0, "내 이름은 오정민이야 반가우이!", LocalDateTime.of(2024, 11, 28, 10, 10, 10))
 
     ) // '채팅'
     @RequiresApi(Build.VERSION_CODES.O)

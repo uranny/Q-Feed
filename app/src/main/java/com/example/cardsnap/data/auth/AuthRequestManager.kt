@@ -7,6 +7,7 @@ import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import androidx.annotation.RequiresExtension
 import com.example.cardsnap.data.base.LoginResponse
+import com.example.cardsnap.data.base.RefreshResponse
 import com.example.cardsnap.data.base.RegisterResponse
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -47,6 +48,15 @@ object AuthRequestManager {
         val response = authService.register(registerData)
         Log.d("register", "$response")
         if (!response.isSuccessful){
+            throw retrofit2.HttpException(response)
+        }
+        return response
+    }
+
+    suspend fun refreshRequest(refreshData: RefreshRequest) : Response<RefreshResponse>{
+        val response = authService.refresh(refreshData)
+        Log.d("refresh", "$response")
+        if(!response.isSuccessful){
             throw retrofit2.HttpException(response)
         }
         return response

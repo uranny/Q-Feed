@@ -16,6 +16,7 @@ import com.example.cardsnap.activity.MainActivity
 import com.example.cardsnap.data.auth.AuthRequestManager
 import com.example.cardsnap.data.auth.LoginRequest
 import com.example.cardsnap.data.user.UserInfo
+import com.example.cardsnap.data.user.UserRequestManager
 import com.example.cardsnap.data.user.addPost
 import com.example.cardsnap.databinding.FrameLoginBinding
 import kotlinx.coroutines.launch
@@ -64,35 +65,74 @@ class FragLogin() : Fragment(){
         lifecycleScope.launch {
             try {
                 val loginRequest = LoginRequest(id, pw)
-                val response = AuthRequestManager.loginRequest(loginRequest)
-                Log.d("loginRequest", "${response.body()}")
+                val getLoginResponse = AuthRequestManager.loginRequest(loginRequest)
+                Log.d("loginRequest", "${getLoginResponse.body()}")
 
-                UserInfo.accessToken = response.body()?.data?.accessToken
-                UserInfo.refreshToken = response.body()?.data?.refreshToken
-                UserInfo.tokenType = response.body()?.data?.tokenType
-                UserInfo.userId = id
+                UserInfo.accessToken = getLoginResponse.body()?.data?.accessToken
+                UserInfo.refreshToken = getLoginResponse.body()?.data?.refreshToken
+                UserInfo.tokenType = getLoginResponse.body()?.data?.tokenType
 
                 if(UserInfo.accessToken != null){
-                    Toast.makeText(requireContext(), "${response.body()?.message}", Toast.LENGTH_SHORT).show()
-                    goMain()
+                    getMyPageRequest()
                 }else{
                     showTxt("토큰을 받아오지 못하였습니다")
                 }
 
             } catch (e: retrofit2.HttpException){
-                showTxt("아이디, 비번이 잘못되었스빈다")
+                showTxt("아이디, 비번이 잘못되었습니다")
                 Log.e("mine", "${e.message}")
             } catch (e: Exception){
-                showTxt("나는 아무거또 멀라요")
+                showTxt("알 수 없는 오류가 발생하였습니다")
                 Log.e("mine", "${e.message}")
             }
         }
 
     }
 
+    private fun getMyPageRequest(){
+        lifecycleScope.launch {
+            try{
+                val getMPRspn = UserRequestManager.myPageRequest("${UserInfo.tokenType!!} ${UserInfo.accessToken!!}").body()
+                Log.d("myPageRequest", "${getMPRspn}")
+
+                val arrayMap = mapOf(
+                    "FIRST_GRADE" to "1학년",
+                    "SECOND_GRADE" to "2학년",
+                    "THIRD_GRADE" to "3학년"
+                )
+
+                with(UserInfo){
+                    myId = getMPRspn?.id
+                    id = getMPRspn?.id
+                    uid = getMPRspn?.uid
+                    usernname = getMPRspn?.username
+                    affiliation = getMPRspn?.affiliation
+                    grade = arrayMap[getMPRspn?.grade] ?: "0학년"
+                    imageUrl = getMPRspn?.imageUrl
+                    statusMessage = getMPRspn?.statusMessage
+                    hashtags = getMPRspn?.hashtags ?: listOf("string", "string", "string")
+                    age = getMPRspn?.age
+                    height = getMPRspn?.height
+                    weight = getMPRspn?.weight
+                    habbies = getMPRspn?.hobbies
+                    likes = getMPRspn?.likes
+                    dislikes = getMPRspn?.dislikes
+                    idealType = getMPRspn?.idealType
+                }
+                goMain()
+            } catch (e : retrofit2.HttpException){
+                showTxt("마이페이지를 받아오지 못 하였습니다")
+                Log.e("mine", "${e.message}")
+            } catch (e : Exception){
+                showTxt("알 수 없는 오류가 발생하였습니다")
+                Log.e("mine", "${e.message}")
+            }
+        }
+    }
+
     private fun goMain(){
-        UserInfo.postLst = arrayListOf()
-        UserInfo.postPosition = 1
+
+
         addPost()
 
         val intent = Intent(requireActivity(), MainActivity::class.java)

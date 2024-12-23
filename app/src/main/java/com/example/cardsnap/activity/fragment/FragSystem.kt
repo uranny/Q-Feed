@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,7 @@ class FragSystem : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // view 불러오기
-        //showView(view)
+        showView(view)
 
         binding.profileEditBtn.setOnClickListener {
             activity?.findNavController(R.id.nav_host_fragment)
@@ -68,7 +69,7 @@ class FragSystem : Fragment() {
             activity?.finish() // 현재 액티비티 종료
         }
 
-        if(UserInfo.otherIndex != -1){
+        if(UserInfo.id != UserInfo.myId){
             setProfileVisibility()
         }
 
@@ -106,33 +107,31 @@ class FragSystem : Fragment() {
     // view를 설정하는 함수
     private fun showView(view: View) {
         // 사용자 프로필 정보 다시 가져오기
-        val userProfile = User.postLst[User.profileIndex]
 
         with(binding) {
-            afilTxt?.text = userProfile.userAffil
-            nameTxt?.text = userProfile.userName
-            messageTxt?.text = userProfile.messagetxt
-            tagTxt?.text = userProfile.tagTxt
-            ageTxt?.text = "${userProfile.age}세"
-            heightTxt?.text = "${userProfile.height}cm"
-            habbitTxt?.text = userProfile.habbit
-            kgTxt?.text = "${userProfile.kg}kg"
-            likeTxt?.text = userProfile.likeTxt
-            hateTxt?.text = userProfile.hateTxt
-            idealTxt?.text = userProfile.idealTxt
+            afilTxt.text = "${UserInfo.affiliation} ${UserInfo.grade}"
+            nameTxt.text = UserInfo.usernname ?: "string"
+            messageTxt.text = UserInfo.statusMessage ?: "string"
+            tagTxt.text = UserInfo.hashtags.joinToString(" "){"#$it"}
+            ageTxt.text = (UserInfo.age ?: -1).toString()
+            heightTxt.text = (UserInfo.height ?: -1).toString()
+            kgTxt.text = (UserInfo.weight ?: -1).toString()
+            habbitTxt.text = UserInfo.habbies ?: "없음"
+            likeTxt.text = UserInfo.likes ?: "없음"
+            hateTxt.text = UserInfo.dislikes ?: "없음"
+            idealTxt.text =UserInfo.idealType ?: "없음"
         }
 
-        // 이미지 URI 가져오기
-        val imageUri = userProfile.userImg
+        Log.d("uri", "${UserInfo.imageUrl}")
 
         // 이미지가 있으면 Glide를 사용해 이미지 로드, 없으면 기본 이미지 설정
-        if (imageUri.isNotEmpty()) {
+        if (UserInfo.imageUrl?.isNotEmpty() == true) {
             Glide.with(this)
-                .load(Uri.parse(imageUri))
-                .error(R.drawable.img_4)
+                .load(UserInfo.imageUrl)
+                .error(R.drawable.img_5)
                 .into(binding.userImg)
         } else {
-            binding.userImg?.setImageResource(R.drawable.ic_launcher_foreground)
+            binding.userImg?.setImageResource(R.drawable.img_5)
         }
     }
 }

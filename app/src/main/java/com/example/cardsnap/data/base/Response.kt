@@ -19,18 +19,26 @@ data class RegisterResponse(
     val message: String
 )
 
+data class RefreshResponse(
+    val status : Int,
+    val state : String,
+    val message: String,
+    val data : TokenData
+)
+
 data class SignupResponse(
     val id : Int,
     val uid : String,
-    val usernname : String,
+    val username : String,
     val affiliation : String,
+    val grade : String,
     val imageUrl : String,
     val statusMessage : String,
     val hashtags : List<String>,
     val age : Int,
     val height : Int,
     val weight : Int,
-    val habbies : String,
+    val hobbies : String,
     val likes : String,
     val dislikes : String,
     val idealType : String
@@ -39,15 +47,16 @@ data class SignupResponse(
 data class GetUserInfoResponse(
     val id : Int,
     val uid : String,
-    val usernname : String,
+    val username : String,
     val affiliation : String,
+    val grade : String,
     val imageUrl : String,
     val statusMessage : String,
     val hashtags : List<String>,
     val age : Int,
     val height : Int,
     val weight : Int,
-    val habbies : String,
+    val hobbies : String,
     val likes : String,
     val dislikes : String,
     val idealType : String
@@ -56,12 +65,23 @@ data class GetUserInfoResponse(
 data class UploadProfileResponse(
     val status: Int,
     val state : String,
-    val message : String,
-    val data : TokenData
+    val message : String
 )
 
 data class MyPageResponse(
-    val status : Int,
-    val state : String,
-    val message: String
+    val id : Int,
+    val uid : String,
+    val username : String,
+    val affiliation : String,
+    val grade : String,
+    val imageUrl : String,
+    val statusMessage : String,
+    val hashtags : List<String>,
+    val age : Int,
+    val height : Int,
+    val weight : Int,
+    val hobbies : String,
+    val likes : String,
+    val dislikes : String,
+    val idealType : String
 )
