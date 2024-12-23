@@ -15,8 +15,8 @@ import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.activity.ServiceActivity
 import com.example.cardsnap.data.user.UserInfo
+import com.example.cardsnap.data.user.resetUserInfo
 import com.example.cardsnap.databinding.FrameSystemBinding
-import com.example.cardsnap.serverDaechae.User
 
 class FragSystem : Fragment() {
 
@@ -64,6 +64,7 @@ class FragSystem : Fragment() {
 
         // 로그아웃 버튼 클릭 시 LoginActivity로 이동하고 현재 액티비티 종료
         binding.logOutBtn.setOnClickListener {
+            resetUserInfo()
             val intent = Intent(context, ServiceActivity::class.java)
             startActivity(intent)
             activity?.finish() // 현재 액티비티 종료

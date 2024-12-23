@@ -9,10 +9,10 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cardsnap.R
 import com.example.cardsnap.data.user.UserInfo
-import com.example.cardsnap.serverDaechae.InChat
-import com.example.cardsnap.serverDaechae.User.inChatLst
+import com.example.cardsnap.adapter.adapter_class.Chat
+import com.example.cardsnap.data.user.UserInfo.chatLst
 
-class ChatAdapter(private val chatLst: ArrayList<InChat>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatAdapter(private val chatLst: ArrayList<Chat>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when(chatLst[position].id){
@@ -46,7 +46,7 @@ class ChatAdapter(private val chatLst: ArrayList<InChat>) : RecyclerView.Adapter
 
     class MineViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(item: InChat, pos : Int){
+        fun bind(item: Chat, pos : Int){
             itemView.findViewById<TextView>(R.id.sendTxt).text = item.txt
 
             val dateTime = itemView.findViewById<TextView>(R.id.dateTimeTxt)
@@ -55,7 +55,7 @@ class ChatAdapter(private val chatLst: ArrayList<InChat>) : RecyclerView.Adapter
                     dateTime.visibility = View.VISIBLE
                     dateTime.text = "${item.dateTime.year}년 ${item.dateTime.monthValue}월 ${item.dateTime.dayOfMonth}일"
                 }
-                inChatLst[pos-1].id != item.id -> {
+                chatLst[pos-1].id != item.id -> {
                     dateTime.visibility = View.VISIBLE
                     dateTime.text = "${item.dateTime.year}년 ${item.dateTime.monthValue}월 ${item.dateTime.dayOfMonth}일"
                 }
@@ -64,11 +64,11 @@ class ChatAdapter(private val chatLst: ArrayList<InChat>) : RecyclerView.Adapter
 
             val itemTime = itemView.findViewById<TextView>(R.id.timeTxt)
             when{
-                pos == inChatLst.size-1 -> {
+                pos == chatLst.size-1 -> {
                     itemTime.visibility = View.VISIBLE
                     itemTime.text = "${item.dateTime.hour}:${item.dateTime.minute}"
                 }
-                inChatLst[pos+1].id != item.id -> {
+                chatLst[pos+1].id != item.id -> {
                     itemTime.visibility = View.VISIBLE
                     itemTime.text = "${item.dateTime.hour}:${item.dateTime.minute}"
                 }
@@ -79,7 +79,7 @@ class ChatAdapter(private val chatLst: ArrayList<InChat>) : RecyclerView.Adapter
 
     class OtherViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(item : InChat, pos : Int){
+        fun bind(item : Chat, pos : Int){
             itemView.findViewById<TextView>(R.id.receiveTxt).text = item.txt
 
             val dateTime = itemView.findViewById<TextView>(R.id.dateTimeTxt)
@@ -88,7 +88,7 @@ class ChatAdapter(private val chatLst: ArrayList<InChat>) : RecyclerView.Adapter
                     dateTime.visibility = View.VISIBLE
                     dateTime.text = "${item.dateTime.year}년 ${item.dateTime.monthValue}월 ${item.dateTime.dayOfMonth}일"
                 }
-                inChatLst[pos-1].id != item.id -> {
+                chatLst[pos-1].id != item.id -> {
                     dateTime.visibility = View.VISIBLE
                     dateTime.text = "${item.dateTime.year}년 ${item.dateTime.monthValue}월 ${item.dateTime.dayOfMonth}일"
                 }
@@ -97,11 +97,11 @@ class ChatAdapter(private val chatLst: ArrayList<InChat>) : RecyclerView.Adapter
 
             val itemTime = itemView.findViewById<TextView>(R.id.timeTxt)
             when{
-                pos == inChatLst.size-1 -> {
+                pos == chatLst.size-1 -> {
                     itemTime.visibility = View.VISIBLE
                     itemTime.text = "${item.dateTime.hour}:${item.dateTime.minute}"
                 }
-                inChatLst[pos+1].id != item.id -> {
+                chatLst[pos+1].id != item.id -> {
                     itemTime.visibility = View.VISIBLE
                     itemTime.text = "${item.dateTime.hour}:${item.dateTime.minute}"
                 }

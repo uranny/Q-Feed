@@ -1,4 +1,4 @@
-package com.example.cardsnap.serverDaechae
+package com.example.cardsnap.adapter.adapter_class
 
 import java.time.LocalDateTime
 

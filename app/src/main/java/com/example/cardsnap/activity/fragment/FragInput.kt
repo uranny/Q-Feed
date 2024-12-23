@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,39 +15,28 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
-import androidx.compose.ui.text.LinkAnnotation
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cardsnap.R
-import com.example.cardsnap.data.auth.AuthRequestManager
-import com.example.cardsnap.data.auth.RefreshRequest
+import com.example.cardsnap.data.auth.request.RefreshRequest
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.data.user.UserRequestManager
 import com.example.cardsnap.data.user.request.SignupRequest
 import com.example.cardsnap.data.user.retrySignUp
 import com.example.cardsnap.data.user.updateUserInfo
 import com.example.cardsnap.databinding.FrameJoinInputBinding
-import com.example.cardsnap.serverDaechae.EditUser
-import com.example.cardsnap.serverDaechae.Post
-import com.example.cardsnap.serverDaechae.User
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
-import retrofit2.http.Url
 import java.io.File
 import java.io.FileOutputStream
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-
 class FragInput : Fragment() {
 
     private lateinit var binding: FrameJoinInputBinding
@@ -118,16 +106,19 @@ class FragInput : Fragment() {
         // 완료 버튼 클릭 리스너
         binding.finishBtn.setOnClickListener {
             try {
+                binding.finishBtn.isEnabled = false
                 if (UserInfo.accessToken == null) {
                     findNavController().popBackStack()
                 } else {
                     if(setFile != null){
                         uploadFile(setFile!!)
+                    } else{
+                        finishEdit()
                     }
-                    finishEdit()
                 }
             } catch (e: Exception) {
                 Log.e("mine", "${e.message}")
+                binding.finishBtn.isEnabled = true
             }
         }
 
@@ -163,6 +154,7 @@ class FragInput : Fragment() {
                 updateUserInfo(getSUResponse)
 
                 Toast.makeText(requireContext(), "프로필 편집 완료", Toast.LENGTH_SHORT).show()
+                binding.finishBtn.isEnabled = true
                 findNavController().popBackStack()
 
             } catch (e:retrofit2.HttpException){
@@ -218,10 +210,11 @@ class FragInput : Fragment() {
             val imgUri : Uri = data.data ?: return
             try {
 
-                Log.d("uri", setURI.toString())
+                Log.d("uri", "기존 URI "+setURI.toString())
+                Log.d("uri", "새 URI "+imgUri.toString())
                 val file = uriToFile(requireContext(), imgUri)
                 setFile = file
-                Log.d("uri", "$file")
+                Log.d("uri", "새 URI file로 변환 : $file")
 
                 Glide.with(requireContext())
                     .load(file)
@@ -238,16 +231,12 @@ class FragInput : Fragment() {
     }
 
     private fun uriToFile(context: Context, uri: Uri): File {
-        val tempFile = File(context.cacheDir, "image")
-        if (tempFile.exists()) {
-            tempFile.delete()
-        }
+        val tempFile = File(context.cacheDir, "temp_image_${System.currentTimeMillis()}.jpg")
+
         context.contentResolver.openInputStream(uri)?.use { inputStream ->
             FileOutputStream(tempFile).use { outputStream ->
                 inputStream.copyTo(outputStream)
-                outputStream.close()
             }
-            inputStream.close()
         }
         return tempFile
     }
@@ -256,9 +245,9 @@ class FragInput : Fragment() {
         lifecycleScope.launch {
             try {
                 val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                val part = MultipartBody.Part.createFormData("file", file.name, requestFile)
+                val part = MultipartBody.Part.createFormData("image", file.name, requestFile)
 
-                Log.d("uri", "File Request: $part")
+                Log.d("uri", "MultipartBody.Part : $part")
 
                 val response = UserRequestManager.uploadProfileRequest(
                     "${UserInfo.tokenType!!} ${UserInfo.accessToken!!}",
@@ -268,6 +257,7 @@ class FragInput : Fragment() {
                 // 4. 서버 응답 처리
                 if (response != null) {
                     setURI = response.message
+                    finishEdit()
                     Log.d("uploadFile", "Upload successful, URI: $setURI")
                 } else {
                     Log.e("uploadFile", "Response is null")

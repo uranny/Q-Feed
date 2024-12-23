@@ -1,14 +1,14 @@
 package com.example.cardsnap.data.auth
 
+import com.example.cardsnap.data.auth.request.LoginRequest
+import com.example.cardsnap.data.auth.request.RefreshRequest
+import com.example.cardsnap.data.auth.request.RegisterRequest
 import com.example.cardsnap.data.base.LoginResponse
 import com.example.cardsnap.data.base.RefreshResponse
 import com.example.cardsnap.data.base.RegisterResponse
-import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface AuthService {
 

@@ -2,19 +2,17 @@ package com.example.cardsnap.activity.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.activity.MainActivity
 import com.example.cardsnap.data.auth.AuthRequestManager
-import com.example.cardsnap.data.auth.LoginRequest
+import com.example.cardsnap.data.auth.request.LoginRequest
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.data.user.UserRequestManager
 import com.example.cardsnap.data.user.addPost
@@ -40,6 +38,7 @@ class FragLogin() : Fragment(){
         binding.wrongTxt.visibility = View.GONE
 
         binding.loginBtn.setOnClickListener {
+            binding.loginBtn.isEnabled = false
             loginRequest()
         }
 
@@ -119,6 +118,7 @@ class FragLogin() : Fragment(){
                     dislikes = getMPRspn?.dislikes
                     idealType = getMPRspn?.idealType
                 }
+                binding.loginBtn.isEnabled = true
                 goMain()
             } catch (e : retrofit2.HttpException){
                 showTxt("마이페이지를 받아오지 못 하였습니다")
@@ -131,7 +131,6 @@ class FragLogin() : Fragment(){
     }
 
     private fun goMain(){
-
 
         addPost()
 

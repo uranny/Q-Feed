@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cardsnap.adapter.ChatAdapter
 import com.example.cardsnap.databinding.FrameInChatBinding
-import com.example.cardsnap.serverDaechae.InChat
-import com.example.cardsnap.serverDaechae.User.inChatLst
+import com.example.cardsnap.adapter.adapter_class.Chat
+import com.example.cardsnap.data.user.UserInfo.chatLst
 import java.time.LocalDateTime
 
 class FragInChat : Fragment() {
@@ -34,19 +34,19 @@ class FragInChat : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        val adapter = ChatAdapter(inChatLst)
+        val adapter = ChatAdapter(chatLst)
         binding.chatRecyclerView.adapter = adapter
         binding.chatRecyclerView.post {
-            binding.chatRecyclerView.scrollToPosition(inChatLst.size - 1)
+            binding.chatRecyclerView.scrollToPosition(chatLst.size - 1)
         }
 
         binding.sendBtn.setOnClickListener {
             val newMessage = binding.editTxt.text?.toString()?.trim()
             if (!newMessage.isNullOrEmpty()) {
-                inChatLst.add(InChat(1, newMessage, LocalDateTime.now()))
-                adapter.notifyItemInserted(inChatLst.size - 1)
-                adapter.notifyItemChanged(inChatLst.size - 2 )// 추가된 항목만 업데이트
-                binding.chatRecyclerView.scrollToPosition(inChatLst.size - 1) // 마지막으로 스크롤
+                chatLst.add(Chat(1, newMessage, LocalDateTime.now()))
+                adapter.notifyItemInserted(chatLst.size - 1)
+                adapter.notifyItemChanged(chatLst.size - 2 )// 추가된 항목만 업데이트
+                binding.chatRecyclerView.scrollToPosition(chatLst.size - 1) // 마지막으로 스크롤
                 binding.editTxt.text?.clear() // 입력 필드 초기화
             }
         }

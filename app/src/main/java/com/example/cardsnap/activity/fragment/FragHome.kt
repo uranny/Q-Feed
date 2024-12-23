@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cardsnap.R
 import com.example.cardsnap.adapter.PostAdapter
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.data.user.addPost
 import com.example.cardsnap.databinding.FrameHomeBinding
-import com.example.cardsnap.serverDaechae.Post
 
 class FragHome : androidx.fragment.app.Fragment() {
 

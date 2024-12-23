@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cardsnap.adapter.UserChatAdapter
+import com.example.cardsnap.adapter.ChatRoomAdapter
 import com.example.cardsnap.R
-import com.example.cardsnap.serverDaechae.User
+import com.example.cardsnap.data.user.UserInfo
 
 class FragChat : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -21,11 +21,11 @@ class FragChat : Fragment() {
 
         try {
             val chatView = frameChat.findViewById<RecyclerView>(R.id.recyclerView)
-            val chatLst = User.chatLst[User.logInIndex]
+            val chatLst = UserInfo.chatRoomLst
             chatView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             chatView.setHasFixedSize(true)
-            chatView.adapter = UserChatAdapter(chatLst, navController)
+            chatView.adapter = ChatRoomAdapter(chatLst, navController)
         } catch (e : Exception){
             Log.e("MyTag", "${e.message}")
         }

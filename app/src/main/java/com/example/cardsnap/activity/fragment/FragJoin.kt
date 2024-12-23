@@ -1,7 +1,6 @@
 package com.example.cardsnap.activity.fragment
 
 import android.os.Bundle
-import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.data.auth.AuthRequestManager
-import com.example.cardsnap.data.auth.LoginRequest
-import com.example.cardsnap.data.auth.RegisterRequest
+import com.example.cardsnap.data.auth.request.RegisterRequest
 import com.example.cardsnap.data.base.RegisterResponse
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameJoinBinding
-import com.example.cardsnap.serverDaechae.EditUser
-import com.example.cardsnap.serverDaechae.User
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.regex.Pattern
@@ -60,6 +56,10 @@ class FragJoin : Fragment() {
         val pass : String? = binding.inputPass.text.toString().trim()
 
         when{
+
+            (UserInfo.accessToken != null) -> {
+                findNavController().navigate(R.id.action_fragJoin_to_fragInput)
+            }
             // 빈칸 확인
             (id.isNullOrBlank() || pass.isNullOrBlank()) -> showError("빈칸을 입력해주세요")
 
@@ -68,9 +68,6 @@ class FragJoin : Fragment() {
 
             // 비밀번호 형식 확인
             (!passwordRegex.matcher(pass).matches()) -> showError("비밀번호의 중간에 공백이 있습니다")
-
-            // 아이디 중복 확인
-            (id in User.idLst) -> showError("이미존재하는 아이디입니다")
 
             // 문제 없다면
             else -> {
@@ -96,8 +93,6 @@ class FragJoin : Fragment() {
                 response = AuthRequestManager.registerRequest(registerRequest)
                 Log.d("join", "resoponse.header : ${response.body()}")
 
-                UserInfo.accessToken = response.body()?.message
-
                 Toast.makeText(requireContext(), "회원가입 성공", Toast.LENGTH_SHORT).show()
 
                 findNavController().navigate(R.id.action_fragJoin_to_fragInput)
@@ -111,6 +106,4 @@ class FragJoin : Fragment() {
             }
         }
     }
-
-
 }

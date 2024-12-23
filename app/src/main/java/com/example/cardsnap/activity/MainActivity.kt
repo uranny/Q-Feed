@@ -26,7 +26,6 @@ import com.example.cardsnap.databinding.ActivityMainBinding
 import com.example.cardsnap.activity.fragment.FragChat
 import com.example.cardsnap.activity.fragment.FragHome
 import com.example.cardsnap.activity.fragment.FragSystem
-import com.example.cardsnap.serverDaechae.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

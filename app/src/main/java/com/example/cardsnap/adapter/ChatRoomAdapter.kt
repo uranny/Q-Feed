@@ -1,6 +1,5 @@
 package com.example.cardsnap.adapter
 
-import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,13 +8,12 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.cardsnap.activity.secret.InChatActivity
 import com.example.cardsnap.R
 import com.example.cardsnap.databinding.UserChatListBinding
-import com.example.cardsnap.serverDaechae.Chat
-import com.example.cardsnap.serverDaechae.User
+import com.example.cardsnap.adapter.adapter_class.ChatRoom
+import com.example.cardsnap.data.user.UserInfo
 
-class UserChatAdapter(private val chatLst: ArrayList<Chat>, private val navController: NavController) : RecyclerView.Adapter<UserChatAdapter.ChatViewHolder>() {
+class ChatRoomAdapter(private val chatRoomLst: ArrayList<ChatRoom>, private val navController: NavController) : RecyclerView.Adapter<ChatRoomAdapter.ChatViewHolder>() {
 
     inner class ChatViewHolder(val binding: UserChatListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -27,12 +25,12 @@ class UserChatAdapter(private val chatLst: ArrayList<Chat>, private val navContr
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val binding = holder.binding
         try{
-            val chat = chatLst[position]
+            val chat = chatRoomLst[position]
             val imageUri = chat.userImg
 
             binding.lastChatTime.setText(chat.time)
 
-            if(chat.chatList.isEmpty()){
+            if(chat.lastChat == null){
                 binding.lastChat.visibility = View.INVISIBLE
             }
             else{
@@ -57,14 +55,12 @@ class UserChatAdapter(private val chatLst: ArrayList<Chat>, private val navContr
         }
 
         binding.userSize.setOnClickListener {
-
-            User.chatIndex = position
-
+            UserInfo.chatIndex = position
             navController.navigate(R.id.action_fragChat_to_fragInChat)
         }
     }
 
     override fun getItemCount(): Int {
-        return chatLst.size
+        return chatRoomLst.size
     }
 }

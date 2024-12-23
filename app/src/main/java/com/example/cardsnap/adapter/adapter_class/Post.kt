@@ -1,9 +1,7 @@
-package com.example.cardsnap.serverDaechae
-
-import android.net.Uri
-import com.example.cardsnap.R
+package com.example.cardsnap.adapter.adapter_class
 
 data class Post(
+    var id : Int = 0,
     var userName: String = "User",
     var userAffil: String = "Affiliation",
     var time: String = "2008-10-16",

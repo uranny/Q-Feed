@@ -6,14 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.compose.material3.ModalBottomSheet
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.cardsnap.serverDaechae.Post
+import com.example.cardsnap.adapter.adapter_class.Post
 import com.example.cardsnap.R
-import com.example.cardsnap.activity.fragment.CmtBottomSheet
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.UserListBinding
 

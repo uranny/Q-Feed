@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cardsnap.databinding.CmtItemBinding
-import com.example.cardsnap.serverDaechae.Cmt
+import com.example.cardsnap.adapter.adapter_class.Cmt
 import java.time.LocalDateTime
 import java.time.Duration
 
