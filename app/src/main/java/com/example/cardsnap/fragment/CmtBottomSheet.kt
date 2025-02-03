@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cardsnap.adapter.CmtAdapter
 import com.example.cardsnap.databinding.CommentBottomBinding
 import com.example.cardsnap.adapter.adapter_class.Cmt
-import com.example.cardsnap.data.user.UserInfo.cmtLst
+import com.example.cardsnap.adapter.adapter_class.Post
+import com.example.cardsnap.data.user.UserInfo
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDateTime
 
-class CmtBottomSheet : BottomSheetDialogFragment() {
+class CmtBottomSheet(val postItem : Post) : BottomSheetDialogFragment() {
 
     lateinit var binding : CommentBottomBinding
 
@@ -29,7 +30,12 @@ class CmtBottomSheet : BottomSheetDialogFragment() {
 
         binding = CommentBottomBinding.inflate(inflater)
 
-        val cmtAdapter = CmtAdapter(cmtLst)
+        val cmtAdapter = CmtAdapter(postItem.chatLst)
+        val arrayMap = mapOf(
+            "FIRST_GRADE" to "1학년",
+            "SECOND_GRADE" to "2학년",
+            "THIRD_GRADE" to "3학년",
+        )
 
         binding.commentRecyclerView.layoutManager =
             LinearLayoutManager(container?.context, LinearLayoutManager.VERTICAL, false)
@@ -40,12 +46,12 @@ class CmtBottomSheet : BottomSheetDialogFragment() {
             val comment = binding.editTxt.text?.toString()?.trim()
             Log.d("cmt", "$comment")
             if (!comment.isNullOrEmpty()){
-                cmtLst.add(
+                postItem.chatLst.add(
                     0,
                     Cmt(
-                        "아마",
-                        "string",
-                        "string",
+                        UserInfo.imageUrl ?: "string",
+                        UserInfo.usernname ?: "string",
+                        "${if(UserInfo.affiliation == "UNKNOWN") "대구소마고" else UserInfo.affiliation} ${UserInfo.grade}",
                         comment,
                         LocalDateTime.now()
                     )

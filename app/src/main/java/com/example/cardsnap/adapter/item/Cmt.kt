@@ -1,8 +1,8 @@
-package com.example.cardsnap.adapter.adapter_class
+package com.example.cardsnap.adapter.`class`
 
 import java.time.LocalDateTime
 
-class Cmt (
+data class Cmt (
     val userImg : String,
     val userName : String,
     val userAffil : String,

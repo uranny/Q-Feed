@@ -1,11 +1,4 @@
-package com.example.cardsnap.data.base
-
-data class LoginResponse(
-    val status: Int,
-    val state : String,
-    val message : String,
-    val data : TokenData
-)
+package com.example.cardsnap.data.response
 
 data class TokenData(
     val accessToken : String,
@@ -85,4 +78,8 @@ data class MyPageResponse(
     val likes : String,
     val dislikes : String,
     val idealType : String
+)
+
+data class ArticlesResponse(
+    val list : List<Int>
 )

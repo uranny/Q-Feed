@@ -57,6 +57,10 @@ class FragSystem : Fragment() {
         // view 불러오기
         showView(view)
 
+        if(UserInfo.id != UserInfo.myId){
+            setProfileVisibility()
+        }
+
         binding.profileEditBtn.setOnClickListener {
             activity?.findNavController(R.id.nav_host_fragment)
                 ?.navigate(R.id.action_fragSystem_to_fragInput2)
@@ -68,10 +72,6 @@ class FragSystem : Fragment() {
             val intent = Intent(context, ServiceActivity::class.java)
             startActivity(intent)
             activity?.finish() // 현재 액티비티 종료
-        }
-
-        if(UserInfo.id != UserInfo.myId){
-            setProfileVisibility()
         }
 
         // 리스너 호출하여 View가 생성되었음을 알림
@@ -109,8 +109,11 @@ class FragSystem : Fragment() {
     private fun showView(view: View) {
         // 사용자 프로필 정보 다시 가져오기
 
+        val nameArray = resources.getStringArray(R.array.schoolNameLst)
+        val gradeArray = resources.getStringArray(R.array.schoolGradeLst)
+
         with(binding) {
-            afilTxt.text = "${UserInfo.affiliation} ${UserInfo.grade}"
+            afilTxt.text = "${if(UserInfo.affiliation == "UNKNOWN") "대구소마고" else UserInfo.affiliation} ${UserInfo.grade ?: "1학년"}"
             nameTxt.text = UserInfo.usernname ?: "string"
             messageTxt.text = UserInfo.statusMessage ?: "string"
             tagTxt.text = UserInfo.hashtags.joinToString(" "){"#$it"}

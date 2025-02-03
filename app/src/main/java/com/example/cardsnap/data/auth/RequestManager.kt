@@ -1,9 +1,9 @@
 package com.example.cardsnap.data.auth
 
 import android.util.Log
-import com.example.cardsnap.data.auth.request.LoginRequest
-import com.example.cardsnap.data.auth.request.RefreshRequest
-import com.example.cardsnap.data.auth.request.RegisterRequest
+import com.example.cardsnap.data.request.LoginRequest
+import com.example.cardsnap.data.request.RefreshRequest
+import com.example.cardsnap.data.request.RegisterRequest
 import com.example.cardsnap.data.base.LoginResponse
 import com.example.cardsnap.data.base.RefreshResponse
 import com.example.cardsnap.data.base.RegisterResponse

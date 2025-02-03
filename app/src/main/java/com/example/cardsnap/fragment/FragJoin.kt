@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
-import com.example.cardsnap.data.auth.AuthRequestManager
-import com.example.cardsnap.data.auth.request.RegisterRequest
+import com.example.cardsnap.data.auth.RequestManager
+import com.example.cardsnap.data.request.RegisterRequest
 import com.example.cardsnap.data.base.RegisterResponse
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameJoinBinding
@@ -90,7 +90,7 @@ class FragJoin : Fragment() {
                     id,
                     pw
                 )
-                response = AuthRequestManager.registerRequest(registerRequest)
+                response = RequestManager.registerRequest(registerRequest)
                 Log.d("join", "resoponse.header : ${response.body()}")
 
                 Toast.makeText(requireContext(), "회원가입 성공", Toast.LENGTH_SHORT).show()

@@ -23,10 +23,10 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cardsnap.R
-import com.example.cardsnap.data.auth.request.RefreshRequest
+import com.example.cardsnap.data.auth.RequestManager
+import com.example.cardsnap.data.request.RefreshRequest
 import com.example.cardsnap.data.user.UserInfo
-import com.example.cardsnap.data.user.UserRequestManager
-import com.example.cardsnap.data.user.request.SignupRequest
+import com.example.cardsnap.data.request.SignupRequest
 import com.example.cardsnap.data.user.retrySignUp
 import com.example.cardsnap.data.user.updateUserInfo
 import com.example.cardsnap.databinding.FrameJoinInputBinding
@@ -64,12 +64,10 @@ class FragInput : Fragment() {
             val nameArray = resources.getStringArray(R.array.schoolNameLst)
             val gradeArray = resources.getStringArray(R.array.schoolGradeLst)
 
-            var index = -1
-
-            setURI = UserInfo.imageUrl
-
             val gradeIndex = gradeArray.indexOf(UserInfo.grade)
             val nameIndex = nameArray.indexOf(UserInfo.affiliation)
+
+            setURI = UserInfo.imageUrl
 
             with(binding) {
                 editName.setText(UserInfo.usernname ?: "")
@@ -83,8 +81,8 @@ class FragInput : Fragment() {
                 editBadThing.setText(UserInfo.dislikes ?: "")
                 editIdeal.setText(UserInfo.idealType ?: "")
 
-                selectSchool.setSelection(nameIndex)
-                selectGrade.setSelection(gradeIndex)
+                selectSchool.setSelection(if(nameIndex == -1) 0 else nameIndex)
+                selectGrade.setSelection(if(gradeIndex == -1) 0 else gradeIndex)
             }
 
             Glide.with(this)
@@ -149,7 +147,7 @@ class FragInput : Fragment() {
 
         lifecycleScope.launch {
             try {
-                val getSUResponse = UserRequestManager.signupRequest("${UserInfo.tokenType!!} ${UserInfo.accessToken!!}", signUpData).body()
+                val getSUResponse = RequestManager.signupRequest("${UserInfo.tokenType!!} ${UserInfo.accessToken!!}", signUpData).body()
 
                 updateUserInfo(getSUResponse)
 
@@ -249,7 +247,7 @@ class FragInput : Fragment() {
 
                 Log.d("uri", "MultipartBody.Part : $part")
 
-                val response = UserRequestManager.uploadProfileRequest(
+                val response = RequestManager.uploadProfileRequest(
                     "${UserInfo.tokenType!!} ${UserInfo.accessToken!!}",
                     part
                 ).body()

@@ -4,9 +4,7 @@ import com.example.cardsnap.data.base.GetUserInfoResponse
 import com.example.cardsnap.data.base.MyPageResponse
 import com.example.cardsnap.data.base.SignupResponse
 import com.example.cardsnap.data.base.UploadProfileResponse
-import com.example.cardsnap.data.user.request.GetUserInfoRequest
-import com.example.cardsnap.data.user.request.SignupRequest
-import com.example.cardsnap.data.user.request.UploadProfileRequest
+import com.example.cardsnap.data.request.SignupRequest
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -16,7 +14,6 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface UserService {
 
@@ -36,11 +33,16 @@ interface UserService {
     @GET("/user/{id}")
     suspend fun getUserInfo(
         @Header("Authorization") token: String,
-        @Path("id") getUserInfoRequest : GetUserInfoRequest
+        @Path("id") getUserInfoRequest : Int
     ): Response<GetUserInfoResponse>
 
     @GET("/user/me")
     suspend fun myPage(
         @Header("Authorization") token: String
     ) : Response<MyPageResponse>
+
+    @GET("/articles")
+    suspend fun articles(
+        @Header("Authorization") token: String
+    ) : Response<List<Int>>
 }

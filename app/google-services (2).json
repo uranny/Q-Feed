@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1055707966731",
+    "project_id": "q-feedchat",
+    "storage_bucket": "q-feedchat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055707966731:android:0c4a797e245fe50aa1460e",
+        "android_client_info": {
+          "package_name": "com.example.cardsnap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR6uC7cjpGbLs3UOEC4mRF3S560EObMYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

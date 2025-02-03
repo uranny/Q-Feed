@@ -1,7 +1,7 @@
-package com.example.cardsnap.adapter.adapter_class
+package com.example.cardsnap.adapter.`class`
 
 // 채팅방
-class ChatRoom(
+data class ChatRoom(
     val userName: String = "User",
     val userImg : String,
     val userAffil: String = "Affiliation",

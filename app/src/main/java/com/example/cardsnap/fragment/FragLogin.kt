@@ -11,11 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.activity.MainActivity
-import com.example.cardsnap.data.auth.AuthRequestManager
-import com.example.cardsnap.data.auth.request.LoginRequest
+import com.example.cardsnap.adapter.adapter_class.Post
+import com.example.cardsnap.data.auth.RequestManager
+import com.example.cardsnap.data.request.LoginRequest
 import com.example.cardsnap.data.user.UserInfo
-import com.example.cardsnap.data.user.UserRequestManager
-import com.example.cardsnap.data.user.addPost
 import com.example.cardsnap.databinding.FrameLoginBinding
 import kotlinx.coroutines.launch
 
@@ -55,6 +54,7 @@ class FragLogin() : Fragment(){
     private fun loginRequest(){
         if (binding.inputId.text.isEmpty() || binding.inputPass.text.isEmpty()){
             showTxt("빈칸을 입력해주세요")
+            binding.loginBtn.isEnabled = true
             return
         }
 
@@ -64,7 +64,7 @@ class FragLogin() : Fragment(){
         lifecycleScope.launch {
             try {
                 val loginRequest = LoginRequest(id, pw)
-                val getLoginResponse = AuthRequestManager.loginRequest(loginRequest)
+                val getLoginResponse = RequestManager.loginRequest(loginRequest)
                 Log.d("loginRequest", "${getLoginResponse.body()}")
 
                 UserInfo.accessToken = getLoginResponse.body()?.data?.accessToken
@@ -76,7 +76,6 @@ class FragLogin() : Fragment(){
                 }else{
                     showTxt("토큰을 받아오지 못하였습니다")
                 }
-
             } catch (e: retrofit2.HttpException){
                 showTxt("아이디, 비번이 잘못되었습니다")
                 Log.e("mine", "${e.message}")
@@ -85,13 +84,12 @@ class FragLogin() : Fragment(){
                 Log.e("mine", "${e.message}")
             }
         }
-
     }
 
     private fun getMyPageRequest(){
         lifecycleScope.launch {
             try{
-                val getMPRspn = UserRequestManager.myPageRequest("${UserInfo.tokenType!!} ${UserInfo.accessToken!!}").body()
+                val getMPRspn = RequestManager.myPageRequest("${UserInfo.tokenType!!} ${UserInfo.accessToken!!}").body()
                 Log.d("myPageRequest", "${getMPRspn}")
 
                 val arrayMap = mapOf(
@@ -117,26 +115,67 @@ class FragLogin() : Fragment(){
                     likes = getMPRspn?.likes
                     dislikes = getMPRspn?.dislikes
                     idealType = getMPRspn?.idealType
+
+                    getArticles()
                 }
+            } catch (e : retrofit2.HttpException){
+                showTxt("마이페이지를 받아오지 못 하였습니다")
+                binding.loginBtn.isEnabled = true
+                Log.e("mine", "${e.message}")
+            } catch (e : Exception){
+                showTxt("알 수 없는 오류가 발생하였습니다")
+                binding.loginBtn.isEnabled = true
+                Log.e("mine", "${e.message}")
+            }
+        }
+    }
+
+    private fun getArticles(){
+        lifecycleScope.launch {
+            try {
+                val articlesRsp = RequestManager.articlesRequest("${UserInfo.tokenType!!} ${UserInfo.accessToken!!}")
+                Log.d("mine", "${articlesRsp}")
+                articlesRsp.body()?.forEach {
+                    val post = RequestManager.getUserInfoRequest("${UserInfo.tokenType!!} ${UserInfo.accessToken!!}", it).body()
+                    val response = Post(
+                        post!!.id,
+                        post.uid,
+                        post.username,
+                        post.affiliation,
+                        post.grade,
+                        post.imageUrl,
+                        post.statusMessage,
+                        post.hashtags,
+                        post.age,
+                        post.height,
+                        post.weight,
+                        post.hobbies,
+                        post.likes,
+                        post.dislikes,
+                        post.idealType,
+                        arrayListOf(),
+                        arrayListOf()
+                    )
+                    UserInfo.postLst.add(response)
+                }
+
                 binding.loginBtn.isEnabled = true
                 goMain()
             } catch (e : retrofit2.HttpException){
                 showTxt("마이페이지를 받아오지 못 하였습니다")
+                binding.loginBtn.isEnabled = true
                 Log.e("mine", "${e.message}")
             } catch (e : Exception){
                 showTxt("알 수 없는 오류가 발생하였습니다")
+                binding.loginBtn.isEnabled = true
                 Log.e("mine", "${e.message}")
             }
         }
     }
 
     private fun goMain(){
-
-        addPost()
-
         val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
     }
-
 }
