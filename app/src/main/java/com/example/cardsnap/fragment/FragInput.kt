@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.fragment
+package com.example.cardsnap.fragment
 
 import android.Manifest
 import android.content.Context
@@ -27,8 +27,6 @@ import com.example.cardsnap.data.auth.RequestManager
 import com.example.cardsnap.data.request.RefreshRequest
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.data.request.SignupRequest
-import com.example.cardsnap.data.user.retrySignUp
-import com.example.cardsnap.data.user.updateUserInfo
 import com.example.cardsnap.databinding.FrameJoinInputBinding
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -64,22 +62,22 @@ class FragInput : Fragment() {
             val nameArray = resources.getStringArray(R.array.schoolNameLst)
             val gradeArray = resources.getStringArray(R.array.schoolGradeLst)
 
-            val gradeIndex = gradeArray.indexOf(UserInfo.grade)
-            val nameIndex = nameArray.indexOf(UserInfo.affiliation)
+            val gradeIndex = gradeArray.indexOf(UserInfo.userInfo.grade)
+            val nameIndex = nameArray.indexOf(UserInfo.userInfo.affiliation)
 
-            setURI = UserInfo.imageUrl
+            setURI = UserInfo.userInfo.imageUrl
 
             with(binding) {
-                editName.setText(UserInfo.usernname ?: "")
-                editMessage.setText(UserInfo.statusMessage ?: "")
-                editTag.setText(UserInfo.hashtags.joinToString(" "){ "$it" })
-                editAge.setText((UserInfo.age ?: -1).toString())
-                editHeight.setText((UserInfo.height ?: -1).toString())
-                editWeight.setText((UserInfo.weight ?: -1).toString())
-                editHabby.setText(UserInfo.habbies ?: "")
-                editLikeThing.setText(UserInfo.likes ?: "")
-                editBadThing.setText(UserInfo.dislikes ?: "")
-                editIdeal.setText(UserInfo.idealType ?: "")
+                editName.setText(UserInfo.userInfo.username ?: "")
+                editMessage.setText(UserInfo.userInfo.statusMessage ?: "")
+                editTag.setText(UserInfo.userInfo.hashtags!!.joinToString(" "){ "$it" })
+                editAge.setText((UserInfo.userInfo.age ?: -1).toString())
+                editHeight.setText((UserInfo.userInfo.height ?: -1).toString())
+                editWeight.setText((UserInfo.userInfo.weight ?: -1).toString())
+                editHabby.setText(UserInfo.userInfo.habbies ?: "")
+                editLikeThing.setText(UserInfo.userInfo.likes ?: "")
+                editBadThing.setText(UserInfo.userInfo.dislikes ?: "")
+                editIdeal.setText(UserInfo.userInfo.idealType ?: "")
 
                 selectSchool.setSelection(if(nameIndex == -1) 0 else nameIndex)
                 selectGrade.setSelection(if(gradeIndex == -1) 0 else gradeIndex)
@@ -129,7 +127,7 @@ class FragInput : Fragment() {
     private fun finishEdit() {
 
         val signUpData = SignupRequest(
-            UserInfo.uid!!,
+            UserInfo.userInfo.uid!!,
             binding.editName.text.toString(),
             binding.selectSchool.selectedItem.toString(),
             binding.selectGrade.selectedItem.toString()[0].toString(),
@@ -149,16 +147,16 @@ class FragInput : Fragment() {
             try {
                 val getSUResponse = RequestManager.signupRequest("${UserInfo.tokenType!!} ${UserInfo.accessToken!!}", signUpData).body()
 
-                updateUserInfo(getSUResponse)
+                UserInfo.updateUserInfo(getSUResponse)
 
                 Toast.makeText(requireContext(), "프로필 편집 완료", Toast.LENGTH_SHORT).show()
                 binding.finishBtn.isEnabled = true
                 findNavController().popBackStack()
 
-            } catch (e:retrofit2.HttpException){
+            } catch (e:HttpException){
                 Log.d("signUp", "${e.message}")
                 if(e.code() == 403 && UserInfo.refreshToken != null){
-                    retrySignUp(
+                    UserInfo.retrySignUp(
                         signUpData,
                         RefreshRequest(UserInfo.refreshToken!!)
                     )

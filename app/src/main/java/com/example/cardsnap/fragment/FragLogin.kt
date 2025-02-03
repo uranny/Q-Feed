@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.fragment
+package com.example.cardsnap.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.activity.MainActivity
-import com.example.cardsnap.adapter.adapter_class.Post
+import com.example.cardsnap.adapter.item.Post
 import com.example.cardsnap.data.auth.RequestManager
 import com.example.cardsnap.data.request.LoginRequest
+import com.example.cardsnap.data.user.User
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameLoginBinding
 import kotlinx.coroutines.launch
@@ -100,22 +101,24 @@ class FragLogin() : Fragment(){
 
                 with(UserInfo){
                     myId = getMPRspn?.id
-                    id = getMPRspn?.id
-                    uid = getMPRspn?.uid
-                    usernname = getMPRspn?.username
-                    affiliation = getMPRspn?.affiliation
-                    grade = arrayMap[getMPRspn?.grade] ?: "0학년"
-                    imageUrl = getMPRspn?.imageUrl
-                    statusMessage = getMPRspn?.statusMessage
-                    hashtags = getMPRspn?.hashtags ?: listOf("string", "string", "string")
-                    age = getMPRspn?.age
-                    height = getMPRspn?.height
-                    weight = getMPRspn?.weight
-                    habbies = getMPRspn?.hobbies
-                    likes = getMPRspn?.likes
-                    dislikes = getMPRspn?.dislikes
-                    idealType = getMPRspn?.idealType
-
+                    userInfo = User(
+                        id = getMPRspn?.id,
+                        uid = getMPRspn?.uid,
+                        username = getMPRspn?.username,
+                        affiliation = getMPRspn?.affiliation,
+                        grade = arrayMap[getMPRspn?.grade] ?: "0학년",
+                        imageUrl = getMPRspn?.imageUrl,
+                        statusMessage = getMPRspn?.statusMessage,
+                        hashtags = getMPRspn?.hashtags ?: listOf("string", "string", "string"),
+                        age = getMPRspn?.age,
+                        height = getMPRspn?.height,
+                        weight = getMPRspn?.weight,
+                        habbies = getMPRspn?.hobbies,
+                        likes = getMPRspn?.likes,
+                        dislikes = getMPRspn?.dislikes,
+                        idealType = getMPRspn?.idealType
+                    )
+                    Log.d("login", "${userInfo}")
                     getArticles()
                 }
             } catch (e : retrofit2.HttpException){

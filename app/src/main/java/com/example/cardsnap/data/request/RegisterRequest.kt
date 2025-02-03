@@ -1,4 +1,4 @@
-package com.example.cardsnap.data.auth.request
+package com.example.cardsnap.data.request
 
 data class RegisterRequest(
     val uid : String,

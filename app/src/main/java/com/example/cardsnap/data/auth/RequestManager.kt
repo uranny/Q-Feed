@@ -1,19 +1,25 @@
 package com.example.cardsnap.data.auth
 
 import android.util.Log
+import com.example.cardsnap.data.response.GetUserInfoResponse
 import com.example.cardsnap.data.request.LoginRequest
 import com.example.cardsnap.data.request.RefreshRequest
 import com.example.cardsnap.data.request.RegisterRequest
-import com.example.cardsnap.data.base.LoginResponse
-import com.example.cardsnap.data.base.RefreshResponse
-import com.example.cardsnap.data.base.RegisterResponse
+import com.example.cardsnap.data.response.LoginResponse
+import com.example.cardsnap.data.response.MyPageResponse
+import com.example.cardsnap.data.response.RefreshResponse
+import com.example.cardsnap.data.response.RegisterResponse
+import com.example.cardsnap.data.response.SignupResponse
+import com.example.cardsnap.data.response.UploadProfileResponse
+import com.example.cardsnap.data.request.SignupRequest
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object AuthRequestManager {
+object RequestManager {
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://qfeed-api.euns.dev/")
         .client(
@@ -27,6 +33,7 @@ object AuthRequestManager {
         .build()
 
     private val authService: AuthService = retrofit.create(AuthService::class.java)
+    private val userService : UserService = retrofit.create(UserService::class.java)
 
     suspend fun loginRequest(loginData : LoginRequest): Response<LoginResponse>{
         val response = authService.login(loginData)
@@ -56,4 +63,52 @@ object AuthRequestManager {
         return response
     }
 
+    suspend fun signupRequest(token : String, signupData: SignupRequest) : Response<SignupResponse>{
+        val response = userService.signup("$token", signupData)
+        Log.d("signup", "$response")
+        if(!response.isSuccessful){
+            throw retrofit2.HttpException(response)
+        }
+        return response
+    }
+
+    suspend fun getUserInfoRequest(token: String, getUserInfoData: Int) : Response<GetUserInfoResponse>{
+        val response = userService.getUserInfo(token, getUserInfoData)
+        Log.d("getUserInfo", "$response")
+        if(!response.isSuccessful){
+            throw retrofit2.HttpException(response)
+        }
+        return response
+    }
+
+    suspend fun uploadProfileRequest(token : String, image : MultipartBody.Part) : Response<UploadProfileResponse>{
+        val response = userService.uploadProfile(token, image)
+        Log.d("uploadProfileRequest", "${response}")
+        if(!response.isSuccessful){
+            throw retrofit2.HttpException(response)
+        }
+        return response
+    }
+
+    suspend fun myPageRequest(accessToken : String) : Response<MyPageResponse>{
+        val response = userService.myPage(
+            accessToken
+        )
+        Log.d("myPage", "$response")
+        if(!response.isSuccessful){
+            throw retrofit2.HttpException(response)
+        }
+        return response
+    }
+
+    suspend fun articlesRequest(accessToken: String) : Response<List<Int>>{
+        val response = userService.articles(
+            accessToken
+        )
+        Log.d("myPage", "$response")
+        if (!response.isSuccessful){
+            throw retrofit2.HttpException(response)
+        }
+        return response
+    }
 }

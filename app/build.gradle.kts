@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -34,24 +35,20 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
-    // Navigation Components
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.6")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.6")
 
-    // Retrofit for network operations
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    // Coroutines for asynchronous operations
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
-    // Core AndroidX libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

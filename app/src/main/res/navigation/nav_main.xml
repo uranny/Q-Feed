@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragHome"
-        android:name="com.example.cardsnap.activity.fragment.FragHome"
+        android:name="com.example.cardsnap.fragment.FragHome"
         android:label="FragHome"
         tools:layout="@layout/frame_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragChat"
-        android:name="com.example.cardsnap.activity.fragment.FragChat"
+        android:name="com.example.cardsnap.fragment.FragChat"
         android:label="FragChat"
         tools:layout="@layout/frame_chat">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragSystem"
-        android:name="com.example.cardsnap.activity.fragment.FragSystem"
+        android:name="com.example.cardsnap.fragment.FragSystem"
         android:label="FragSystem"
         tools:layout="@layout/frame_system">
         <action
@@ -34,35 +34,21 @@
     </fragment>
     <fragment
         android:id="@+id/fragInput2"
-        android:name="com.example.cardsnap.activity.fragment.FragInput"
+        android:name="com.example.cardsnap.fragment.FragInput"
         android:label="FragInput"
-        tools:layout="@layout/frame_join_input">
-        <action
-            android:id="@+id/action_fragInput2_to_fragSystem"
-            app:destination="@id/fragSystem" />
-    </fragment>
+        tools:layout="@layout/frame_join_input"/>
     <fragment
         android:id="@+id/fragOther"
-        android:name="com.example.cardsnap.activity.fragment.FragOther"
+        android:name="com.example.cardsnap.fragment.FragOther"
         android:label="FragOther"
         tools:layout="@layout/frame_in_profile">
-        <action
-            android:id="@+id/action_fragOther_to_fragHome"
-            app:destination="@id/fragHome" />
         <action
             android:id="@+id/action_fragOther_to_fragInChat"
             app:destination="@id/fragInChat" />
     </fragment>
     <fragment
         android:id="@+id/fragInChat"
-        android:name="com.example.cardsnap.activity.fragment.FragInChat"
+        android:name="com.example.cardsnap.fragment.FragInChat"
         android:label="FragInChat"
-        tools:layout="@layout/frame_in_chat">
-        <action
-            android:id="@+id/action_fragInChat_to_fragChat"
-            app:destination="@id/fragChat" />
-        <action
-            android:id="@+id/action_fragInChat_to_fragOther"
-            app:destination="@id/fragOther" />
-    </fragment>
+        tools:layout="@layout/frame_in_chat"/>
 </navigation>

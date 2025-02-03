@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.fragment
+package com.example.cardsnap.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.data.auth.RequestManager
 import com.example.cardsnap.data.request.RegisterRequest
-import com.example.cardsnap.data.base.RegisterResponse
+import com.example.cardsnap.data.response.RegisterResponse
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameJoinBinding
 import kotlinx.coroutines.launch

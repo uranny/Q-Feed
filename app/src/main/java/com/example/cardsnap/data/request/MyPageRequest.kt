@@ -1,4 +1,4 @@
-package com.example.cardsnap.data.user.request
+package com.example.cardsnap.data.request
 
 data class MyPageRequest(
     val id : Int,

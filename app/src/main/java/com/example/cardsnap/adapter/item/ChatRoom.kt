@@ -1,4 +1,4 @@
-package com.example.cardsnap.adapter.`class`
+package com.example.cardsnap.adapter.item
 
 // 채팅방
 data class ChatRoom(

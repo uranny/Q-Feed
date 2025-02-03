@@ -1,32 +1,20 @@
 package com.example.cardsnap.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.data.user.UserInfo
-import com.example.cardsnap.data.user.addPost
 import com.example.cardsnap.databinding.ActivityMainBinding
-import com.example.cardsnap.activity.fragment.FragChat
-import com.example.cardsnap.activity.fragment.FragHome
-import com.example.cardsnap.activity.fragment.FragSystem
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.cardsnap.fragment.FragChat
+import com.example.cardsnap.fragment.FragHome
+import com.example.cardsnap.fragment.FragSystem
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,13 +25,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        enableEdgeToEdge()
-//        setContentView(binding.root)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+        enableEdgeToEdge()
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         Toast.makeText(this, "${UserInfo.accessToken}", Toast.LENGTH_SHORT).show()
 
@@ -71,7 +59,6 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profileBtn -> {
-                    UserInfo.otherIndex = -1
                     val navOptions = NavOptions.Builder()
                         .setPopUpTo(R.id.fragSystem, false)
                         .build()
@@ -81,9 +68,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
-
 
     override fun onBackPressed() {
         val navHostFragment =

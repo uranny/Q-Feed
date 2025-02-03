@@ -1,4 +1,4 @@
-package com.example.cardsnap.data.user.request
+package com.example.cardsnap.data.request
 
 import okhttp3.MultipartBody
 

@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.cardsnap.R
 import com.example.cardsnap.databinding.CmtItemBinding
-import com.example.cardsnap.adapter.adapter_class.Cmt
+import com.example.cardsnap.adapter.item.Cmt
 import java.time.LocalDateTime
 import java.time.Duration
 
@@ -23,7 +25,14 @@ class CmtAdapter(private val cmtLst : ArrayList<Cmt>) : RecyclerView.Adapter<Cmt
         val binding = holder.binding
         val user = cmtLst[position]
         binding.userName.text = user.userName
+        binding.userAffil.text = user.userAffil
         binding.cmtTxt.text = user.cmtTxt
+
+        Glide.with(holder.itemView.context)
+            .load(user.userImg) // content:// URI를 Uri 객체로 변환
+            .error(R.drawable.img_5)   // 에러 시 표시할 이미지
+            .into(binding.userImg)      // 이미지를 ImageView에 로드
+
 
         val duration = Duration.between(user.time, LocalDateTime.now())
 

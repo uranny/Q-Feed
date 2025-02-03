@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.fragment
+package com.example.cardsnap.fragment
 
 import android.os.Build
 import android.os.Bundle
@@ -10,8 +10,8 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cardsnap.adapter.CmtAdapter
 import com.example.cardsnap.databinding.CommentBottomBinding
-import com.example.cardsnap.adapter.adapter_class.Cmt
-import com.example.cardsnap.adapter.adapter_class.Post
+import com.example.cardsnap.adapter.item.Cmt
+import com.example.cardsnap.adapter.item.Post
 import com.example.cardsnap.data.user.UserInfo
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDateTime
@@ -49,9 +49,9 @@ class CmtBottomSheet(val postItem : Post) : BottomSheetDialogFragment() {
                 postItem.chatLst.add(
                     0,
                     Cmt(
-                        UserInfo.imageUrl ?: "string",
-                        UserInfo.usernname ?: "string",
-                        "${if(UserInfo.affiliation == "UNKNOWN") "대구소마고" else UserInfo.affiliation} ${UserInfo.grade}",
+                        UserInfo.userInfo.imageUrl ?: "string",
+                        UserInfo.userInfo.username ?: "string",
+                        "${if(UserInfo.userInfo.affiliation == "UNKNOWN") "대구소마고" else UserInfo.userInfo.affiliation} ${UserInfo.userInfo.grade}",
                         comment,
                         LocalDateTime.now()
                     )

@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.fragment
+package com.example.cardsnap.fragment
 
 import android.os.Build
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cardsnap.adapter.ChatAdapter
 import com.example.cardsnap.databinding.FrameInChatBinding
-import com.example.cardsnap.adapter.adapter_class.Chat
+import com.example.cardsnap.adapter.item.Chat
 import com.example.cardsnap.data.user.UserInfo.chatLst
 import java.time.LocalDateTime
 

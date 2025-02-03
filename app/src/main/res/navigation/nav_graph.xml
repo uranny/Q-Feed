@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragLogin"
-        android:name="com.example.cardsnap.activity.fragment.FragLogin"
+        android:name="com.example.cardsnap.fragment.FragLogin"
         android:label="FragLogin"
         tools:layout="@layout/frame_login" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragJoin"
-        android:name="com.example.cardsnap.activity.fragment.FragJoin"
+        android:name="com.example.cardsnap.fragment.FragJoin"
         android:label="FragJoin"
         tools:layout="@layout/frame_join" >
         <action
@@ -25,11 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragInput"
-        android:name="com.example.cardsnap.activity.fragment.FragInput"
+        android:name="com.example.cardsnap.fragment.FragInput"
         android:label="FragInput"
-        tools:layout="@layout/frame_join_input">
-        <action
-            android:id="@+id/action_fragInput_to_fragLogin"
-            app:destination="@id/fragLogin" />
-    </fragment>
+        tools:layout="@layout/frame_join_input"/>
 </navigation>

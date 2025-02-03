@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity.fragment
+package com.example.cardsnap.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cardsnap.R
 import com.example.cardsnap.adapter.PostAdapter
-import com.example.cardsnap.adapter.adapter_class.Post
+import com.example.cardsnap.adapter.item.Post
 import com.example.cardsnap.data.auth.RequestManager
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameHomeBinding
@@ -25,7 +27,7 @@ class FragHome : androidx.fragment.app.Fragment() {
     private var isLoading : Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FrameHomeBinding.inflate(inflater)
+        binding = DataBindingUtil.inflate(inflater, R.layout.frame_home, container, false)
 
         val postView = binding.recycleView
         val userLst = UserInfo.postLst
@@ -106,5 +108,4 @@ class FragHome : androidx.fragment.app.Fragment() {
         val bottomSheet = CmtBottomSheet(postItem)
         bottomSheet.show(childFragmentManager, "Tag")
     }
-
 }

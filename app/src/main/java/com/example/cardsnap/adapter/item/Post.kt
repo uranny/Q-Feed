@@ -1,4 +1,4 @@
-package com.example.cardsnap.adapter.`class`
+package com.example.cardsnap.adapter.item
 
 data class Post(
     val id : Int = -1,

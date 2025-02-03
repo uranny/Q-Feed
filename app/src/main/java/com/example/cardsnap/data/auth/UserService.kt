@@ -1,9 +1,9 @@
-package com.example.cardsnap.data.user
+package com.example.cardsnap.data.auth
 
-import com.example.cardsnap.data.base.GetUserInfoResponse
-import com.example.cardsnap.data.base.MyPageResponse
-import com.example.cardsnap.data.base.SignupResponse
-import com.example.cardsnap.data.base.UploadProfileResponse
+import com.example.cardsnap.data.response.GetUserInfoResponse
+import com.example.cardsnap.data.response.MyPageResponse
+import com.example.cardsnap.data.response.SignupResponse
+import com.example.cardsnap.data.response.UploadProfileResponse
 import com.example.cardsnap.data.request.SignupRequest
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -16,7 +16,6 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface UserService {
-
     @Multipart
     @POST("/user/upload-profile")
     suspend fun uploadProfile(

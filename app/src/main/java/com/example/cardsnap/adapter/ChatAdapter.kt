@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cardsnap.R
 import com.example.cardsnap.data.user.UserInfo
-import com.example.cardsnap.adapter.adapter_class.Chat
+import com.example.cardsnap.adapter.item.Chat
 import com.example.cardsnap.data.user.UserInfo.chatLst
 
 class ChatAdapter(private val chatLst: ArrayList<Chat>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

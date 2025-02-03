@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.databinding.UserChatListBinding
-import com.example.cardsnap.adapter.adapter_class.ChatRoom
-import com.example.cardsnap.data.user.UserInfo
+import com.example.cardsnap.adapter.item.ChatRoom
 
 class ChatRoomAdapter(private val chatRoomLst: ArrayList<ChatRoom>, private val navController: NavController) : RecyclerView.Adapter<ChatRoomAdapter.ChatViewHolder>() {
 
@@ -34,7 +33,7 @@ class ChatRoomAdapter(private val chatRoomLst: ArrayList<ChatRoom>, private val 
                 binding.lastChat.visibility = View.INVISIBLE
             }
             else{
-                binding.lastChat.setText(chat.lastChat)
+                binding.lastChat.text = chat.lastChat
                 binding.lastChat.visibility = View.VISIBLE
             }
 
@@ -55,7 +54,6 @@ class ChatRoomAdapter(private val chatRoomLst: ArrayList<ChatRoom>, private val 
         }
 
         binding.userSize.setOnClickListener {
-            UserInfo.chatIndex = position
             navController.navigate(R.id.action_fragChat_to_fragInChat)
         }
     }
