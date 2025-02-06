@@ -3,10 +3,12 @@ package com.example.cardsnap.ui.vm
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.cardsnap.data.repository.AuthRepository
+import com.example.cardsnap.data.repository.UserRepository
 import com.example.cardsnap.data.request.LoginRequest
 import com.example.cardsnap.data.request.RefreshRequest
-import com.example.cardsnap.data.request.RegisterRequest
+import com.example.cardsnap.data.user.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,8 +19,9 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+class LoginViewModel @Inject constructor(
+    private val authRepository : AuthRepository,
+    private val userRepository : UserRepository
 ) : ViewModel() {
 
     private val _id = MutableStateFlow("string")
@@ -51,8 +54,10 @@ class AuthViewModel @Inject constructor(
                 val loginRequest = LoginRequest(_id.value, _pw.value)
                 authRepository.login(loginRequest)
             }.onSuccess {
-                _loginSuccess.emit(true)
-                Log.d("Login", "AuthViewModel : Success")
+                Log.d("Login", "AuthViewModel.loginRequest Success : ${UserInfo.accessToken}")
+                UserInfo.accessToken?.let { token ->
+                    setMyProfile(token)
+                }
             }.onFailure { e ->
                 when(e){
                     is HttpException -> {
@@ -61,7 +66,6 @@ class AuthViewModel @Inject constructor(
                         return@launch
                     }
                     else -> {
-
                         changeErrorTxt("알 수 없는 오류가 발생했습니다")
                         _loginSuccess.emit(false)
                         return@launch
@@ -71,18 +75,60 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun registerRequest(){
+    private fun setMyProfile(
+        token : String
+    ) {
         viewModelScope.launch {
             kotlin.runCatching {
-                val registerRequest = RegisterRequest(_id.value, _pw.value)
-                authRepository.register(registerRequest)
-            }.onFailure { e ->
+                Log.d("Login", "AuthViewModel.setMyProfile : ${UserInfo.accessToken}")
+                userRepository.getMyPage(token)
+            }.onSuccess {
+                Log.d("Login", "AuthViewModel.setMyProfile : setMyProfile Success")
+                getArticles(token)
+            }.onFailure { e->
                 when(e){
-                    is HttpException -> {
-                        return@launch
+                    is HttpException ->{
+                        if(e.code() == 401){
+                            refreshRequest(UserInfo.refreshToken!!)
+                            getArticles(token)
+                        }
+                        Log.d("Login", "AuthViewModel.setMyProfile : ${e.message}")
+                        changeErrorTxt("서버에 연결할 수 없습니다")
                     }
                     else -> {
-                        return@launch
+                        Log.d("Login", "AuthViewModel.setMyProfile : ${e.message}")
+                        changeErrorTxt("알 수 없는 오류가 발생하였습니다")
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun getArticles(
+        token : String
+    ) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                Log.d("Login", "AuthViewModel.GetArticles.before : ${UserInfo.postLst.size}")
+                userRepository.getArticles(token)
+                Log.d("Login", "AuthViewModel.GetArticles.after : ${UserInfo.postLst.size}")
+            }.onSuccess {
+                Log.d("Login", "AuthViewModel.GetArticles.loginSuccess : ${UserInfo.postLst.size}")
+                _loginSuccess.emit(true)
+            }.onFailure { e->
+                when(e){
+                    is HttpException ->{
+                        if(e.code() == 401){
+                            refreshRequest(UserInfo.refreshToken!!)
+                            getArticles(token)
+                        }
+                        Log.d("Login", "AuthViewModel.getArticles : ${e.message}")
+                        changeErrorTxt("서버에 연결할 수 없습니다")
+                    }
+                    else -> {
+                        Log.d("Login", "AuthViewModel.getArticles : ${e.message}")
+                        changeErrorTxt("알 수 없는 오류가 발생하였습니다")
                     }
                 }
             }
@@ -90,7 +136,7 @@ class AuthViewModel @Inject constructor(
     }
 
     // 토스트 메세지 띄우기
-    fun refreshRequest(refreshToken : String){
+    private fun refreshRequest(refreshToken : String){
         viewModelScope.launch {
             kotlin.runCatching {
                 val refreshRequest = RefreshRequest(refreshToken)

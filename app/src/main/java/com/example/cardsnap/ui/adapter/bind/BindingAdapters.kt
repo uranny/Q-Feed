@@ -1,4 +1,4 @@
-package com.example.cardsnap.adapter.bind
+package com.example.cardsnap.ui.adapter.bind
 
 import android.widget.EditText
 import android.widget.ImageView

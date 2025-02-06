@@ -1,4 +1,4 @@
-package com.example.cardsnap.vm
+package com.example.cardsnap.ui.vm
 
 import androidx.lifecycle.ViewModel
 import com.example.cardsnap.data.user.User

@@ -1,4 +1,4 @@
-package com.example.cardsnap.adapter
+package com.example.cardsnap.ui.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cardsnap.adapter.item.Post
+import com.example.cardsnap.ui.adapter.item.Post
 import com.example.cardsnap.R
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.UserListBinding
 
-class PostAdapter(private val postLst: ArrayList<Post>,
-                  private val onViewClicked : (Post) -> Unit,
+class PostAdapter(private var postLst: ArrayList<Post>,
+                  private val onViewClicked : (Int) -> Unit,
                   private val onChatClicked: (Post) -> Unit) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     inner class PostViewHolder(val binding: UserListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -48,7 +48,7 @@ class PostAdapter(private val postLst: ArrayList<Post>,
     private fun setClickListeners(binding : UserListBinding, post : Post){
         with(binding){
             // 유저 이름 클릭 리스너
-            userName.setOnClickListener { onViewClicked(post) }
+            userName.setOnClickListener { onViewClicked(post.id) }
 
             // 채팅 버튼 클릭 리스너
             chatBtn.setOnClickListener { onChatClicked(post) }
@@ -86,5 +86,10 @@ class PostAdapter(private val postLst: ArrayList<Post>,
     // chat 추가하기
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addChat(position: Int){
+    }
+
+    fun updateData(newList: ArrayList<Post>) {
+        postLst = newList
+        notifyDataSetChanged()
     }
 }

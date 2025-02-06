@@ -1,4 +1,4 @@
-package com.example.cardsnap.fragment
+package com.example.cardsnap.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cardsnap.adapter.ChatRoomAdapter
+import com.example.cardsnap.ui.adapter.ChatRoomAdapter
 import com.example.cardsnap.R
 import com.example.cardsnap.data.user.UserInfo
 

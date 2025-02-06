@@ -2,8 +2,14 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="loginViewModel"
+            type="com.example.cardsnap.ui.vm.LoginViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/back_gra">
@@ -44,10 +50,11 @@
                     android:layout_height="40dp"
                     android:background="@drawable/input_btn"
                     android:hint="이메일 또는 아이디를 입력하세요"
-                    android:text="string"
                     android:textColorHint="#7C7C7C"
                     android:textColor="#000000"
                     android:textSize="12sp"
+                    android:text="@{loginViewModel.id}"
+                    android:onTextChanged="@{(s, start, before, count) -> loginViewModel.changeId(s)}"
                     android:padding="10dp"
                     android:inputType="text"
                     android:layout_marginBottom="5dp"/>
@@ -58,8 +65,9 @@
                     android:layout_height="40dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/input_btn"
-                    android:text="string"
+                    android:text="@{loginViewModel.pw}"
                     android:hint="비밀번호를 입력하세요"
+                    android:onTextChanged="@{(s, start, before, count) -> loginViewModel.changePw(s)}"
                     android:padding="10dp"
                     android:textColorHint="#7C7C7C"
                     android:textColor="#000000"
@@ -74,8 +82,9 @@
                     android:gravity="center"
                     android:textSize="12sp"
                     android:textColor="#FF0000"
-                    android:text="이메일, 아이또는 비밀번호가 틀렸습니다."
+                    android:text="@{loginViewModel.errorTxt}"
                     android:layout_marginBottom="5dp"/>
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/loginBtn"
                     android:layout_width="match_parent"

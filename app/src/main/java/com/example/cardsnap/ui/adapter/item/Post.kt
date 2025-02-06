@@ -1,4 +1,4 @@
-package com.example.cardsnap.adapter.item
+package com.example.cardsnap.ui.adapter.item
 
 import com.example.cardsnap.data.response.BaseUserResponse
 import com.example.cardsnap.data.user.User

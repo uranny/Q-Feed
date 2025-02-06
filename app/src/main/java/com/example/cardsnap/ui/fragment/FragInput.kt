@@ -1,4 +1,4 @@
-package com.example.cardsnap.fragment
+package com.example.cardsnap.ui.fragment
 
 import android.Manifest
 import android.content.Context

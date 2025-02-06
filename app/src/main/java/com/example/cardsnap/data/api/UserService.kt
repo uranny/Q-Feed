@@ -1,10 +1,10 @@
-package com.example.cardsnap.data.auth
+package com.example.cardsnap.data.api
 
 import com.example.cardsnap.data.response.GetUserInfoResponse
 import com.example.cardsnap.data.response.MyPageResponse
-import com.example.cardsnap.data.response.SignupResponse
+import com.example.cardsnap.data.response.SetProfileResponse
 import com.example.cardsnap.data.response.UploadProfileResponse
-import com.example.cardsnap.data.request.SignupRequest
+import com.example.cardsnap.data.request.SetProfileRequest
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -27,8 +27,8 @@ interface UserService {
     @POST("/user/set")
     suspend fun set(
         @Header("Authorization") token: String,
-        @Body signupRequest: SignupRequest
-    ): Response<SignupResponse>
+        @Body setProfileRequest: SetProfileRequest
+    ): Response<SetProfileResponse>
 
     @GET("/user/{id}")
     suspend fun getUserInfo(

@@ -1,4 +1,4 @@
-package com.example.cardsnap.adapter
+package com.example.cardsnap.ui.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cardsnap.R
 import com.example.cardsnap.data.user.UserInfo
-import com.example.cardsnap.adapter.item.Chat
+import com.example.cardsnap.ui.adapter.item.Chat
 import com.example.cardsnap.data.user.UserInfo.chatLst
 
 class ChatAdapter(private val chatLst: ArrayList<Chat>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

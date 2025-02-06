@@ -1,4 +1,4 @@
-package com.example.cardsnap.fragment
+package com.example.cardsnap.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.databinding.FrameInProfileBinding
-import com.example.cardsnap.vm.HomeViewModel
-import com.example.cardsnap.vm.InProfileViewModel
-import com.example.cardsnap.vm.factory.InProfileViewModelFactory
+import com.example.cardsnap.ui.vm.HomeViewModel
+import com.example.cardsnap.ui.vm.InProfileViewModel
 
 class FragInProfile : Fragment() {
 
@@ -27,8 +24,6 @@ class FragInProfile : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        profileViewModel = ViewModelProvider(this, InProfileViewModelFactory(homeViewModel.user.value))[InProfileViewModel::class.java]
-
         binding = DataBindingUtil.inflate(inflater, R.layout.frame_in_profile, container, false)
         binding.viewModel = profileViewModel
         binding.lifecycleOwner = this

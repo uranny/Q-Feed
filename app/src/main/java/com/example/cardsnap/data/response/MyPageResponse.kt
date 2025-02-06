@@ -1,19 +1,41 @@
 package com.example.cardsnap.data.response
 
+import com.example.cardsnap.data.user.User
+
 data class MyPageResponse(
-    val id : Int,
-    val uid : String,
-    val username : String,
-    val affiliation : String,
-    val grade : String,
-    val imageUrl : String,
-    val statusMessage : String,
-    val hashtags : List<String>,
-    val age : Int,
-    val height : Int,
-    val weight : Int,
-    val hobbies : String,
-    val likes : String,
-    val dislikes : String,
-    val idealType : String
-)
+    override val id : Int,
+    override val uid : String,
+    override val username : String,
+    override val affiliation : String,
+    override val grade : String,
+    override val imageUrl : String,
+    override val statusMessage : String,
+    override val hashtags : List<String>,
+    override val age : Int,
+    override val height : Int,
+    override val weight : Int,
+    override val habbies : String,
+    override val likes : String,
+    override val dislikes : String,
+    override val idealType : String
+) : BaseUserResponse
+
+fun MyPageResponse.toUser() : User {
+    return User(
+        id,
+        uid,
+        username,
+        affiliation,
+        grade,
+        imageUrl,
+        statusMessage,
+        hashtags,
+        age,
+        height,
+        weight,
+        habbies,
+        likes,
+        dislikes,
+        idealType
+    )
+}

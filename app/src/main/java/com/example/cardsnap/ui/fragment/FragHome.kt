@@ -8,41 +8,41 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cardsnap.R
-import com.example.cardsnap.adapter.PostAdapter
-import com.example.cardsnap.adapter.item.Post
-import com.example.cardsnap.adapter.item.toUser
-import com.example.cardsnap.data.repository.RequestManager
-import com.example.cardsnap.data.user.User
+import com.example.cardsnap.ui.adapter.PostAdapter
+import com.example.cardsnap.ui.adapter.item.Post
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameHomeBinding
-import com.example.cardsnap.vm.HomeViewModel
+import com.example.cardsnap.ui.vm.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class FragHome : androidx.fragment.app.Fragment() {
 
     private lateinit var postAdapter: PostAdapter
     private lateinit var binding: FrameHomeBinding
-    private val viewModel : HomeViewModel by activityViewModels()
-    private var isLoading : Boolean = false
+    private val viewModel : HomeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.frame_home, container, false)
 
         val postView = binding.recycleView
-        val userLst = UserInfo.postLst
-
         val navController = findNavController()
+        Log.d("GetArticle", "getArticle : ${UserInfo.postLst}")
 
-        postAdapter = PostAdapter(userLst,
-            onViewClicked = { post ->
-                val newUser = post.toUser()
-                viewModel.changeUser(newUser)
+        postAdapter = PostAdapter(
+            UserInfo.postLst,
+            onViewClicked = {
                 navController.navigate(R.id.action_fragHome_to_fragInProfile)
             },
             onChatClicked = { postItem ->
@@ -56,7 +56,20 @@ class FragHome : androidx.fragment.app.Fragment() {
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(postView)
 
+        observeViewModel()
+
         return binding.root
+    }
+
+    private fun observeViewModel(){
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.getArticlesSuccess.collectLatest { _ ->
+                    postAdapter.updateData(UserInfo.postLst)
+                    Log.d("GetArticle", "FragHome : ${UserInfo.postLst.size}")
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,59 +80,11 @@ class FragHome : androidx.fragment.app.Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
-                if (!isLoading && lastVisibleItemPosition == UserInfo.postLst.size - 1) {
-                    try {
-                        isLoading = true
-                        getArticles(postAdapter,  UserInfo.postLst.size)
-                        Log.d("mine", "${UserInfo.postLst.size}")
-                    } catch (e : Exception){
-                        Log.d("paging", "$e")
-                        Toast.makeText(requireContext(), "가져오는데 실패함", Toast.LENGTH_SHORT).show()
-                    }
+                if (lastVisibleItemPosition == UserInfo.postLst.size - 3) {
+                    viewModel.getArticles(UserInfo.accessToken!!)
                 }
             }
         })
-    }
-
-    // 게시글 가져오기
-    private fun getArticles(postAdapter: PostAdapter, oldLstSize : Int){
-        lifecycleScope.launch {
-            try {
-                val articlesRsp = UserInfo.accessToken?.let { RequestManager.articlesRequest(it) }
-                articlesRsp?.body()?.forEach { articles ->
-                    val post =
-                        UserInfo.accessToken?.let { token -> RequestManager.getUserInfoRequest(token, articles).body() }
-                    val response = Post(
-                        post!!.id,
-                        post.uid,
-                        post.username,
-                        post.affiliation,
-                        post.grade,
-                        post.imageUrl,
-                        post.statusMessage,
-                        post.hashtags,
-                        post.age,
-                        post.height,
-                        post.weight,
-                        post.habbies,
-                        post.likes,
-                        post.dislikes,
-                        post.idealType,
-                        arrayListOf(),
-                        arrayListOf()
-                    )
-                    UserInfo.postLst.add(response)
-                }
-                val addItemCount = articlesRsp?.body()?.size ?: 0
-                postAdapter.notifyItemRangeInserted(oldLstSize, addItemCount)
-            } catch (e : retrofit2.HttpException){
-                Log.e("mine", "${e.message}")
-            } catch (e : Exception){
-                Log.e("mine", "${e.message}")
-            } finally {
-                isLoading = false
-            }
-        }
     }
 
     private fun showBottomSheet(postItem : Post) {

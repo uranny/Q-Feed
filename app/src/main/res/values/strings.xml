@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">cardSnap</string>
+    <string name="default_text">string</string>
 </resources>

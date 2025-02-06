@@ -1,6 +1,6 @@
 package com.example.cardsnap.data.request
 
-data class SignupRequest(
+data class SetProfileRequest(
     val uid : String,
     val username : String,
     val affiliation : String,

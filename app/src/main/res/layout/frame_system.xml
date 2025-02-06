@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.cardsnap.vm.SystemViewModel" />
+            type="com.example.cardsnap.ui.vm.SystemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:gravity="center"
-                    android:text="@{viewModel.affiliation}"
+                    app:affiliation = "@{viewModel.uiState.affiliation}"
+                    app:grade = "@{viewModel.uiState.grade}"
                     android:textColor="#607C7C7C"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -46,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{viewModel.username}"
+                    app:ui_text="@{viewModel.uiState.username}"
                     android:textColor="#7C7C7C"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -69,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="@{viewModel.uiState.statusMessage}"
+                    app:ui_text="@{viewModel.uiState.statusMessage}"
                     android:textColor="#7C7C7C"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -79,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{viewModel.hashTags}"
+                    app:hashtags="@{viewModel.uiState.hashtags}"
                     android:textColor="#807C7C7C"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -194,7 +195,7 @@
                                 android:layout_weight="1"
                                 android:maxLines="1"
                                 android:ellipsize="end"
-                                android:text="@{viewModel.uiState.habbies}"
+                                app:ui_text="@{viewModel.uiState.habbies}"
                                 android:textColor="#7C7C7C"
                                 android:textSize="16sp"
                                 android:gravity="end"
@@ -221,7 +222,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="10dp"
-                                android:text="@{viewModel.uiState.likes}"
+                                app:ui_text="@{viewModel.uiState.likes}"
                                 android:textColor="#7C7C7C"
                                 android:textSize="16sp"
                                 android:textStyle="bold"/>
@@ -326,7 +327,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="10dp"
-                                android:text="@{viewModel.uiState.dislikes}"
+                                app:ui_text="@{viewModel.uiState.dislikes}"
                                 android:textColor="#7C7C7C"
                                 android:textSize="16sp"
                                 android:textStyle="bold"/>
@@ -359,29 +360,9 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
                         android:gravity="start"
-                        android:text="@{viewModel.uiState.idealType}"
+                        app:ui_text="@{viewModel.uiState.idealType}"
                         android:textColor="#7C7C7C"
                         android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:orientation="vertical">
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/chatInBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="대화 하기"
-                        android:background="@drawable/login_btn"
-                        android:textColor="#7C7C7C"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:visibility="gone"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

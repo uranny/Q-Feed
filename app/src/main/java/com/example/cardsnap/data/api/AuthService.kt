@@ -1,4 +1,4 @@
-package com.example.cardsnap.data.auth
+package com.example.cardsnap.data.api
 
 import com.example.cardsnap.data.request.LoginRequest
 import com.example.cardsnap.data.request.RefreshRequest
@@ -11,7 +11,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthService {
-
     @POST("/auth/login")
     suspend fun login(
         @Body loginRequest : LoginRequest
@@ -19,11 +18,11 @@ interface AuthService {
 
     @POST("/auth/register")
     suspend fun register(
-        @Body authRegisterRequest : RegisterRequest
+        @Body registerRequest : RegisterRequest
     ): Response<RegisterResponse>
 
     @POST("/auth/refresh")
     suspend fun refresh(
-        @Body authRefreshRequest : RefreshRequest
+        @Body refreshRequest : RefreshRequest
     ): Response<RefreshResponse>
 }

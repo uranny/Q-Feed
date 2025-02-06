@@ -1,4 +1,4 @@
-package com.example.cardsnap.fragment
+package com.example.cardsnap.ui.fragment
 
 import android.os.Bundle
 import android.util.Log

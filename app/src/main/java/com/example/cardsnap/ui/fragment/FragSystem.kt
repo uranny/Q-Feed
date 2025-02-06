@@ -1,10 +1,7 @@
 package com.example.cardsnap.ui.fragment
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.cardsnap.R
-import com.example.cardsnap.activity.ServiceActivity
+import com.example.cardsnap.ui.activity.ServiceActivity
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.FrameSystemBinding
-import com.example.cardsnap.vm.SystemViewModel
+import com.example.cardsnap.ui.vm.SystemViewModel
 
 class FragSystem : Fragment() {
 

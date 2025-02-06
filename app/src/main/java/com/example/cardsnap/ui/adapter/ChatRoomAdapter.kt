@@ -1,4 +1,4 @@
-package com.example.cardsnap.adapter
+package com.example.cardsnap.ui.adapter
 
 import android.net.Uri
 import android.util.Log
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.databinding.UserChatListBinding
-import com.example.cardsnap.adapter.item.ChatRoom
+import com.example.cardsnap.ui.adapter.item.ChatRoom
 
 class ChatRoomAdapter(private val chatRoomLst: ArrayList<ChatRoom>, private val navController: NavController) : RecyclerView.Adapter<ChatRoomAdapter.ChatViewHolder>() {
 

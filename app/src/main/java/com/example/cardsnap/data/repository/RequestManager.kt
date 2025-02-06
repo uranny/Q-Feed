@@ -1,6 +1,8 @@
-package com.example.cardsnap.data.auth
+package com.example.cardsnap.data.repository
 
 import android.util.Log
+import com.example.cardsnap.data.api.AuthService
+import com.example.cardsnap.data.api.UserService
 import com.example.cardsnap.data.response.GetUserInfoResponse
 import com.example.cardsnap.data.request.LoginRequest
 import com.example.cardsnap.data.request.RefreshRequest
@@ -9,17 +11,15 @@ import com.example.cardsnap.data.response.LoginResponse
 import com.example.cardsnap.data.response.MyPageResponse
 import com.example.cardsnap.data.response.RefreshResponse
 import com.example.cardsnap.data.response.RegisterResponse
-import com.example.cardsnap.data.response.SignupResponse
+import com.example.cardsnap.data.response.SetProfileResponse
 import com.example.cardsnap.data.response.UploadProfileResponse
-import com.example.cardsnap.data.request.SignupRequest
+import com.example.cardsnap.data.request.SetProfileRequest
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Singleton
 
 object RequestManager {
     private val retrofit = Retrofit.Builder()
@@ -36,15 +36,6 @@ object RequestManager {
 
     private val authService : AuthService = retrofit.create(AuthService::class.java)
     private val userService : UserService = retrofit.create(UserService::class.java)
-
-    suspend fun loginRequest(loginData : LoginRequest): Response<LoginResponse>{
-        val response = authService.login(loginData)
-        Log.d("response", "$response")
-        if (!response.isSuccessful){
-            throw retrofit2.HttpException(response)
-        }
-        return response
-    }
 
     suspend fun registerRequest(registerData : RegisterRequest) : Response<RegisterResponse>{
 
@@ -65,7 +56,7 @@ object RequestManager {
         return response
     }
 
-    suspend fun setRequest(token : String, signupData: SignupRequest) : Response<SignupResponse>{
+    suspend fun setRequest(token : String, signupData: SetProfileRequest) : Response<SetProfileResponse>{
         val response = userService.set(token, signupData)
         Log.d("set", "$response")
         if(!response.isSuccessful){

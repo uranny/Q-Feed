@@ -1,4 +1,4 @@
-package com.example.cardsnap.adapter
+package com.example.cardsnap.ui.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cardsnap.R
 import com.example.cardsnap.databinding.CmtItemBinding
-import com.example.cardsnap.adapter.item.Cmt
+import com.example.cardsnap.ui.adapter.item.Cmt
 import java.time.LocalDateTime
 import java.time.Duration
 

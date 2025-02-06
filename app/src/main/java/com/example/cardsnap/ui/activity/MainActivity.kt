@@ -1,21 +1,20 @@
-package com.example.cardsnap.activity
+package com.example.cardsnap.ui.activity
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.data.user.UserInfo
 import com.example.cardsnap.databinding.ActivityMainBinding
-import com.example.cardsnap.fragment.FragChat
-import com.example.cardsnap.fragment.FragHome
-import com.example.cardsnap.fragment.FragSystem
+import com.example.cardsnap.ui.fragment.FragChat
+import com.example.cardsnap.ui.fragment.FragHome
+import com.example.cardsnap.ui.fragment.FragSystem
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -25,13 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         Toast.makeText(this, "${UserInfo.accessToken}", Toast.LENGTH_SHORT).show()
 

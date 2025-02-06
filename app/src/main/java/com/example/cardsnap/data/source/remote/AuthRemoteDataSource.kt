@@ -1,4 +1,4 @@
-package com.example.cardsnap.data.source
+package com.example.cardsnap.data.source.remote
 
 import android.util.Log
 import com.example.cardsnap.data.api.AuthService

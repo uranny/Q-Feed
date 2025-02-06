@@ -1,4 +1,4 @@
-package com.example.cardsnap.activity
+package com.example.cardsnap.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

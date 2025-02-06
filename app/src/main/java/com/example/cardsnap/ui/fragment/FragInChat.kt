@@ -9,9 +9,9 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cardsnap.adapter.ChatAdapter
+import com.example.cardsnap.ui.adapter.ChatAdapter
 import com.example.cardsnap.databinding.FrameInChatBinding
-import com.example.cardsnap.adapter.item.Chat
+import com.example.cardsnap.ui.adapter.item.Chat
 import com.example.cardsnap.data.user.UserInfo.chatLst
 import java.time.LocalDateTime
 

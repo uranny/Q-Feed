@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cardsnap.adapter.CmtAdapter
+import com.example.cardsnap.ui.adapter.CmtAdapter
 import com.example.cardsnap.databinding.CommentBottomBinding
-import com.example.cardsnap.adapter.item.Cmt
-import com.example.cardsnap.adapter.item.Post
+import com.example.cardsnap.ui.adapter.item.Cmt
+import com.example.cardsnap.ui.adapter.item.Post
 import com.example.cardsnap.data.user.UserInfo
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDateTime
