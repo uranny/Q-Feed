@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.cardsnap.ui.vm.SystemViewModel" />
+            type="com.example.cardsnap.presentation.vm.SystemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

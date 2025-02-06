@@ -2,11 +2,11 @@ package com.example.cardsnap.data.source.remote
 
 import android.util.Log
 import com.example.cardsnap.data.api.AuthService
-import com.example.cardsnap.data.request.LoginRequest
-import com.example.cardsnap.data.request.RefreshRequest
-import com.example.cardsnap.data.request.RegisterRequest
-import com.example.cardsnap.data.response.LoginResponse
-import com.example.cardsnap.data.response.RefreshResponse
+import com.example.cardsnap.domain.entity.request.LoginRequest
+import com.example.cardsnap.domain.entity.request.RefreshRequest
+import com.example.cardsnap.domain.entity.request.RegisterRequest
+import com.example.cardsnap.domain.entity.response.LoginResponse
+import com.example.cardsnap.domain.entity.response.RefreshResponse
 import com.example.cardsnap.data.source.base.AuthDataSource
 import javax.inject.Inject
 

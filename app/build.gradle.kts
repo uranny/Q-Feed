@@ -48,9 +48,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-
     implementation(libs.hilt.android)
+    implementation(libs.kotlinx.coroutines.android)
     kapt("com.google.dagger:hilt-android-compiler:2.55")
 
     implementation(libs.androidx.room.runtime)

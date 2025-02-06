@@ -6,7 +6,7 @@
     <data>
         <variable
             name="uiState"
-            type="com.example.cardsnap.ui.adapter.item.Post" />
+            type="com.example.cardsnap.domain.entity.item.Post" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

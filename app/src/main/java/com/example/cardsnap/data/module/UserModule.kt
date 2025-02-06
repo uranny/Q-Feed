@@ -1,11 +1,9 @@
 package com.example.cardsnap.data.module
 
 import com.example.cardsnap.data.api.UserService
-import com.example.cardsnap.data.repository.AuthRepository
 import com.example.cardsnap.data.repository.UserRepository
 import com.example.cardsnap.data.source.remote.UserRemoteDataSource
 import com.example.cardsnap.data.source.base.UserDataSource
-import com.example.cardsnap.data.usecase.GetUserUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,11 +24,4 @@ object UserModule {
     fun provideUserRepository(
         remoteDataSource : UserDataSource
     ) : UserRepository = UserRepository(remoteDataSource)
-
-    @Provides
-    @Singleton
-    fun provideGetUserUseCase(
-        authRepository: AuthRepository,
-        userRepository: UserRepository
-    ) : GetUserUseCase = GetUserUseCase(authRepository, userRepository)
 }

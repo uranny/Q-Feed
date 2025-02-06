@@ -1,11 +1,11 @@
 package com.example.cardsnap.data.api
 
-import com.example.cardsnap.data.request.LoginRequest
-import com.example.cardsnap.data.request.RefreshRequest
-import com.example.cardsnap.data.request.RegisterRequest
-import com.example.cardsnap.data.response.LoginResponse
-import com.example.cardsnap.data.response.RefreshResponse
-import com.example.cardsnap.data.response.RegisterResponse
+import com.example.cardsnap.domain.entity.request.LoginRequest
+import com.example.cardsnap.domain.entity.request.RefreshRequest
+import com.example.cardsnap.domain.entity.request.RegisterRequest
+import com.example.cardsnap.domain.entity.response.LoginResponse
+import com.example.cardsnap.domain.entity.response.RefreshResponse
+import com.example.cardsnap.domain.entity.response.RegisterResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

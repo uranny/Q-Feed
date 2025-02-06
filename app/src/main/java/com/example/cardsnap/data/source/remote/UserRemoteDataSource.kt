@@ -2,11 +2,11 @@ package com.example.cardsnap.data.source.remote
 
 import android.util.Log
 import com.example.cardsnap.data.api.UserService
-import com.example.cardsnap.data.request.SetProfileRequest
-import com.example.cardsnap.data.response.GetUserInfoResponse
-import com.example.cardsnap.data.response.MyPageResponse
-import com.example.cardsnap.data.response.SetProfileResponse
-import com.example.cardsnap.data.response.UploadProfileResponse
+import com.example.cardsnap.domain.entity.request.SetProfileRequest
+import com.example.cardsnap.domain.entity.response.GetUserInfoResponse
+import com.example.cardsnap.domain.entity.response.MyPageResponse
+import com.example.cardsnap.domain.entity.response.SetProfileResponse
+import com.example.cardsnap.domain.entity.response.UploadProfileResponse
 import com.example.cardsnap.data.source.base.UserDataSource
 import okhttp3.MultipartBody
 import javax.inject.Inject

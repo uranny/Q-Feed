@@ -1,10 +1,10 @@
 package com.example.cardsnap.data.source.base
 
-import com.example.cardsnap.data.request.SetProfileRequest
-import com.example.cardsnap.data.response.GetUserInfoResponse
-import com.example.cardsnap.data.response.MyPageResponse
-import com.example.cardsnap.data.response.SetProfileResponse
-import com.example.cardsnap.data.response.UploadProfileResponse
+import com.example.cardsnap.domain.entity.request.SetProfileRequest
+import com.example.cardsnap.domain.entity.response.GetUserInfoResponse
+import com.example.cardsnap.domain.entity.response.MyPageResponse
+import com.example.cardsnap.domain.entity.response.SetProfileResponse
+import com.example.cardsnap.domain.entity.response.UploadProfileResponse
 import okhttp3.MultipartBody
 
 interface UserDataSource {

@@ -1,16 +1,14 @@
 package com.example.cardsnap.data.repository
 
 import android.util.Log
-import com.example.cardsnap.ui.adapter.item.Post
-import com.example.cardsnap.data.request.SetProfileRequest
-import com.example.cardsnap.data.response.BaseUserResponse
-import com.example.cardsnap.data.response.MyPageResponse
-import com.example.cardsnap.data.response.toPost
-import com.example.cardsnap.data.response.toUser
+import com.example.cardsnap.domain.entity.item.Post
+import com.example.cardsnap.domain.entity.request.SetProfileRequest
+import com.example.cardsnap.domain.entity.response.MyPageResponse
 import com.example.cardsnap.data.source.base.UserDataSource
-import com.example.cardsnap.data.source.remote.UserRemoteDataSource
-import com.example.cardsnap.data.user.User
-import com.example.cardsnap.data.user.UserInfo
+import com.example.cardsnap.data.source.user.UserInfo
+import com.example.cardsnap.domain.mapper.toPost
+import com.example.cardsnap.domain.mapper.toUser
+import kotlinx.coroutines.runBlocking
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -60,7 +58,6 @@ class UserRepository @Inject constructor(
         kotlin.run {
             val articleLst = remoteDataSource.articles(token)
             setArticles(token, articleLst)
-            Log.d("GetArticle", "UserRepository.getArticles : ${UserInfo.postLst.size}")
         }
     }
 
@@ -76,9 +73,11 @@ class UserRepository @Inject constructor(
         articleLst : List<Int>
     ) {
         kotlin.run {
-            articleLst.forEach { item ->
+            runBlocking {
+
+            }
+            articleLst.map { item ->
                 UserInfo.postLst.add(getUserInfo(token, item))
-                Log.d("GetArticle", "UserRepository.setArticles : ${UserInfo.postLst.size}")
             }
         }
     }

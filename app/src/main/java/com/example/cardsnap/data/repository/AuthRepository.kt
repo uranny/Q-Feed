@@ -1,12 +1,12 @@
 package com.example.cardsnap.data.repository
 
 import android.util.Log
-import com.example.cardsnap.data.request.LoginRequest
-import com.example.cardsnap.data.request.RefreshRequest
-import com.example.cardsnap.data.request.RegisterRequest
-import com.example.cardsnap.data.response.TokenData
+import com.example.cardsnap.domain.entity.request.LoginRequest
+import com.example.cardsnap.domain.entity.request.RefreshRequest
+import com.example.cardsnap.domain.entity.request.RegisterRequest
+import com.example.cardsnap.domain.entity.response.TokenData
 import com.example.cardsnap.data.source.base.AuthDataSource
-import com.example.cardsnap.data.user.UserInfo
+import com.example.cardsnap.data.source.user.UserInfo
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
