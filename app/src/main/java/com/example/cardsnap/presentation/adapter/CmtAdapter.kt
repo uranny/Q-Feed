@@ -33,7 +33,6 @@ class CmtAdapter(private val cmtLst : ArrayList<Cmt>) : RecyclerView.Adapter<Cmt
             .error(R.drawable.img_5)   // 에러 시 표시할 이미지
             .into(binding.userImg)      // 이미지를 ImageView에 로드
 
-
         val duration = Duration.between(user.time, LocalDateTime.now())
 
         binding.time.text = beforeTime(duration)
@@ -41,14 +40,19 @@ class CmtAdapter(private val cmtLst : ArrayList<Cmt>) : RecyclerView.Adapter<Cmt
 
     @RequiresApi(Build.VERSION_CODES.S)
     private fun beforeTime(duration: Duration): String {
-        when{
-            duration.toDays() >= 365 -> return "${(duration.toDays()/365).toInt()}년 전"
-            duration.toDays() >= 30L -> return "${(duration.toDays()/30).toInt()}달 전"
-            duration.toDays() != 0L -> return "${duration.toDays()%30}일 전"
-            duration.toHours() != 0L -> return "${duration.toHours()}시간 전"
-            duration.toMinutes() != 0L -> return "${duration.toMinutes()}분 전"
-            else -> return "${duration.toSeconds()}초 전"
+        return when{
+            duration.toDays() >= 365 -> formatTimeText((duration.toDays()/365).toInt(), "년 전")
+            duration.toDays() >= 30L -> formatTimeText((duration.toDays()/30).toInt(), "달 전")
+            duration.toDays() != 0L -> formatTimeText((duration.toDays()%30).toInt(), "일 전")
+            duration.toHours() != 0L -> formatTimeText(duration.toHours().toInt(), "시간 전")
+            duration.toMinutes() != 0L -> formatTimeText(duration.toMinutes().toInt(), "분 전")
+            else -> formatTimeText(duration.toSeconds().toInt(), "초 전")
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun formatTimeText(time : Int, string : String) : String{
+        return (time.toString() + String)
     }
 
     override fun getItemCount(): Int = cmtLst.size

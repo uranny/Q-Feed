@@ -1,4 +1,4 @@
-package com.example.cardsnap.presentation.vm
+package com.example.cardsnap.presentation.viewModel
 
 import com.example.cardsnap.data.repository.AuthRepository
 import com.example.cardsnap.data.repository.UserRepository

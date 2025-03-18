@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.cardsnap.presentation.vm.HomeViewModel" />
+            type="com.example.cardsnap.presentation.viewModel.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

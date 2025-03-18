@@ -34,5 +34,14 @@
             app:layout_constraintStart_toStartOf="@+id/main"
             app:menu="@menu/main_menu" />
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="89dp"
+            android:layout_height="0dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="196dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

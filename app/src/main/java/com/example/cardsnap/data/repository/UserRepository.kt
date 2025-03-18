@@ -1,6 +1,5 @@
 package com.example.cardsnap.data.repository
 
-import android.util.Log
 import com.example.cardsnap.domain.entity.item.Post
 import com.example.cardsnap.domain.entity.request.SetProfileRequest
 import com.example.cardsnap.domain.entity.response.MyPageResponse
@@ -8,7 +7,6 @@ import com.example.cardsnap.data.source.base.UserDataSource
 import com.example.cardsnap.data.source.user.UserInfo
 import com.example.cardsnap.domain.mapper.toPost
 import com.example.cardsnap.domain.mapper.toUser
-import kotlinx.coroutines.runBlocking
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -73,9 +71,6 @@ class UserRepository @Inject constructor(
         articleLst : List<Int>
     ) {
         kotlin.run {
-            runBlocking {
-
-            }
             articleLst.map { item ->
                 UserInfo.postLst.add(getUserInfo(token, item))
             }

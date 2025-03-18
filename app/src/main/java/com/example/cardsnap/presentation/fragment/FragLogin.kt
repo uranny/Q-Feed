@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.cardsnap.R
 import com.example.cardsnap.presentation.activity.MainActivity
 import com.example.cardsnap.databinding.FrameLoginBinding
-import com.example.cardsnap.presentation.vm.LoginViewModel
+import com.example.cardsnap.presentation.viewModel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

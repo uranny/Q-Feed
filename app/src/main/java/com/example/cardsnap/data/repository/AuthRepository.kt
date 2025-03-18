@@ -7,17 +7,17 @@ import com.example.cardsnap.domain.entity.request.RegisterRequest
 import com.example.cardsnap.domain.entity.response.TokenData
 import com.example.cardsnap.data.source.base.AuthDataSource
 import com.example.cardsnap.data.source.user.UserInfo
+import com.example.cardsnap.domain.entity.response.LoginResponse
+import com.example.cardsnap.domain.entity.response.RefreshResponse
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
     private val remoteDataSource: AuthDataSource
 ) {
-    suspend fun login(loginRequest: LoginRequest) {
+    suspend fun login(loginRequest: LoginRequest) : LoginResponse {
         Log.d("Login", "AuthRepository : $loginRequest")
-        kotlin.run {
-            val response = remoteDataSource.login(loginRequest)
-            setToken(response.data)
-        }
+        val response = remoteDataSource.login(loginRequest)
+        return response
     }
 
     suspend fun register(registerRequest: RegisterRequest){
@@ -26,11 +26,9 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    suspend fun refresh(refreshRequest: RefreshRequest) {
-        kotlin.run {
-            val response = remoteDataSource.refresh(refreshRequest)
-            setToken(response.data)
-        }
+    suspend fun refresh(refreshRequest: RefreshRequest) : RefreshResponse {
+        val response = remoteDataSource.refresh(refreshRequest)
+        return response
     }
 
     // Room 적용 시에 AuthLocalDataSource에서 처리 할 거

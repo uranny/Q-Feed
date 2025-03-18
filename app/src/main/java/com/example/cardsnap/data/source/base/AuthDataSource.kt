@@ -5,6 +5,7 @@ import com.example.cardsnap.domain.entity.request.RefreshRequest
 import com.example.cardsnap.domain.entity.request.RegisterRequest
 import com.example.cardsnap.domain.entity.response.LoginResponse
 import com.example.cardsnap.domain.entity.response.RefreshResponse
+import retrofit2.Response
 
 interface AuthDataSource {
     suspend fun login(loginRequest: LoginRequest) : LoginResponse

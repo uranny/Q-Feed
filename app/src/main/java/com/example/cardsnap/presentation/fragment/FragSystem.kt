@@ -13,7 +13,7 @@ import com.example.cardsnap.R
 import com.example.cardsnap.presentation.activity.ServiceActivity
 import com.example.cardsnap.data.source.user.UserInfo
 import com.example.cardsnap.databinding.FrameSystemBinding
-import com.example.cardsnap.presentation.vm.SystemViewModel
+import com.example.cardsnap.presentation.viewModel.SystemViewModel
 
 class FragSystem : Fragment() {
 

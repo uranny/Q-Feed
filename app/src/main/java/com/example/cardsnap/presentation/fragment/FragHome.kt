@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -19,7 +20,7 @@ import com.example.cardsnap.presentation.adapter.PostAdapter
 import com.example.cardsnap.domain.entity.item.Post
 import com.example.cardsnap.data.source.user.UserInfo
 import com.example.cardsnap.databinding.FrameHomeBinding
-import com.example.cardsnap.presentation.vm.HomeViewModel
+import com.example.cardsnap.presentation.viewModel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -66,6 +67,10 @@ class FragHome : androidx.fragment.app.Fragment() {
                     postAdapter.updateData(UserInfo.postLst)
                     Log.d("GetArticle", "FragHome : ${UserInfo.postLst.size}")
                 }
+                viewModel.apiMsg.collectLatest { errorTxt ->
+                    if (errorTxt.isNotEmpty()) Toast.makeText(requireContext(), errorTxt, Toast.LENGTH_SHORT).show()
+                    Log.d("GetArticle", "FragHome : ${UserInfo.postLst.size}")
+                }
             }
         }
     }
@@ -78,7 +83,7 @@ class FragHome : androidx.fragment.app.Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
-                if (lastVisibleItemPosition == UserInfo.postLst.size - 3) {
+                if (lastVisibleItemPosition == UserInfo.postLst.size - 1) {
                     viewModel.getArticles(UserInfo.accessToken!!)
                 }
             }

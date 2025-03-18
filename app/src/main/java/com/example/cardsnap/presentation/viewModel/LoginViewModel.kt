@@ -1,4 +1,4 @@
-package com.example.cardsnap.presentation.vm
+package com.example.cardsnap.presentation.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
